@@ -1,14 +1,21 @@
-# Recypi
+# Recipy
 
 # Overview
 
-Add an overview of your application here.
+Input ingredients you have around the house and get recipes in return containing those recipes!
+
+Simply put in your ingredients and we'll give you suggestions.
+
+Aimed at people who never know what to cook (everybody).
 
 # Team Members
 
 Matt Malone
+
 Andy Lin
+
 Vidul Mahendru
+
 Sal Alzu'bi
 
 # Application Initialization
