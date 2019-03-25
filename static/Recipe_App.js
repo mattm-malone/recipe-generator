@@ -9,7 +9,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 // This is a place holder for the initial application state.
-var state = [];
+var recipeDesc = [{ category: "Sporting Goods", price: "$49.99", stocked: true, name: "Football" }, { category: "Sporting Goods", price: "$9.99", stocked: true, name: "Baseball" }, { category: "Sporting Goods", price: "$29.99", stocked: false, name: "Basketball" }, { category: "Electronics", price: "$99.99", stocked: true, name: "iPod Touch" }, { category: "Electronics", price: "$399.99", stocked: false, name: "iPhone 5" }, { category: "Electronics", price: "$199.99", stocked: true, name: "Nexus 7" }];
 
 // This grabs the DOM element to be used to mount React components.
 var contentNode = document.getElementById("contents");
@@ -33,12 +33,62 @@ var MyComponent = function (_React$Component) {
           "h1",
           null,
           "My View 03"
-        )
+        ),
+        React.createElement(RecipeImage, null),
+        React.createElement("hr", null),
+        React.createElement(RecipeDescription, null),
+        React.createElement("hr", null)
       );
     }
   }]);
 
   return MyComponent;
+}(React.Component);
+
+var RecipeImage = function (_React$Component2) {
+  _inherits(RecipeImage, _React$Component2);
+
+  function RecipeImage() {
+    _classCallCheck(this, RecipeImage);
+
+    return _possibleConstructorReturn(this, (RecipeImage.__proto__ || Object.getPrototypeOf(RecipeImage)).apply(this, arguments));
+  }
+
+  _createClass(RecipeImage, [{
+    key: "render",
+    value: function render() {
+      return React.createElement(
+        "div",
+        null,
+        "This is a placeholder for the Image of the Recipe."
+      );
+    }
+  }]);
+
+  return RecipeImage;
+}(React.Component);
+
+var RecipeDescription = function (_React$Component3) {
+  _inherits(RecipeDescription, _React$Component3);
+
+  function RecipeDescription() {
+    _classCallCheck(this, RecipeDescription);
+
+    return _possibleConstructorReturn(this, (RecipeDescription.__proto__ || Object.getPrototypeOf(RecipeDescription)).apply(this, arguments));
+  }
+
+  _createClass(RecipeDescription, [{
+    key: "render",
+    value: function render() {
+      return React.createElement(
+        "div",
+        null,
+        "This is a placeholder for the description of the image."
+      );
+    }
+  }]);
+
+  return RecipeDescription;
 }(React.Component);
 
 // This renders the JSX component inside the content node:

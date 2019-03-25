@@ -1,5 +1,4 @@
 // This is a place holder for the initial application state.
-import PropTypes from 'prop-types'
 
 const recipes = [
   {
@@ -34,22 +33,17 @@ const recipes = [
   }
 ];
 
-// This grabs the DOM element to be used to mount React components.
-var contentNode = document.getElementById("contents");
 
 class Card extends React.Component {
-  constructor() {
-    super();
-  }
 
   render() {
     return (
       <div className="bg-light-green dib br3 pa3 ma2 grow">
-        <img role="presentation" src={`//robohash.org/${id}?size=200x200`} />
         <div>
-          <h2>{name}</h2>
-          <p>{desc}</p>
-          <p>{date}</p>
+          <p>{this.id}</p>
+          <h2>{this.name}</h2>
+          <p>{this.desc}</p>
+          <p>{this.date}</p>
         </div>
       </div>
     );
@@ -64,8 +58,8 @@ Card.propTypes = {
 };
 
 const CardList = ({ recipes }) => {
-  const cardsArray = recipes.map(recipes => (
-    <Card
+  const cardsArray = recipes.map(recipe => (
+    <Card key={recipe.id}
       id={recipe.id}
       name={recipe.name}
       desc={recipe.desc}
@@ -80,7 +74,7 @@ const CardList = ({ recipes }) => {
 };
 
 CardList.propTypes = {
-  robots: React.PropTypes.array.isRequired
+  recipes: React.PropTypes.array.isRequired
 };
 
 
@@ -89,7 +83,5 @@ ReactDOM.render(
   <div>
     <CardList recipes={recipes} />
   </div>,
-  document.getElementById("root")
-);
-
-
+  document.getElementById("contents")
+)

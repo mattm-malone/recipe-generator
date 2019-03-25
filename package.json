@@ -11,7 +11,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@material-ui/core": "^3.9.2",
     "express": "^4.16.4",
+    "material-ui-search-bar-enhanced": "^0.5.3",
     "prop-types": "^15.7.2"
   },
   "devDependencies": {
