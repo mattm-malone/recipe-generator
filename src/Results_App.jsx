@@ -40,10 +40,11 @@ class Card extends React.Component {
     return (
       <div className="bg-light-green dib br3 pa3 ma2 grow">
         <div>
-          <p>{this.id}</p>
-          <h2>{this.name}</h2>
-          <p>{this.desc}</p>
-          <p>{this.date}</p>
+          <h2>{this.props.name}</h2>
+          <p>{this.props.id}</p>
+          <p>img</p>
+          <p>{this.props.desc}</p>
+          <p>{this.props.date}</p>
         </div>
       </div>
     );

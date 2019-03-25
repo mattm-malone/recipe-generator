@@ -9,21 +9,21 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 // This is a place holder for the initial application state.
-var recipeDesc = [{ category: "Sporting Goods", price: "$49.99", stocked: true, name: "Football" }, { category: "Sporting Goods", price: "$9.99", stocked: true, name: "Baseball" }, { category: "Sporting Goods", price: "$29.99", stocked: false, name: "Basketball" }, { category: "Electronics", price: "$99.99", stocked: true, name: "iPod Touch" }, { category: "Electronics", price: "$399.99", stocked: false, name: "iPhone 5" }, { category: "Electronics", price: "$199.99", stocked: true, name: "Nexus 7" }];
+var recipeDesc = [{ text: "chikcne and cheese", Calories: "$499", vitamins: true, nutrients: "carbs" }];
 
 // This grabs the DOM element to be used to mount React components.
 var contentNode = document.getElementById("contents");
 
-var MyComponent = function (_React$Component) {
-  _inherits(MyComponent, _React$Component);
+var Recipe = function (_React$Component) {
+  _inherits(Recipe, _React$Component);
 
-  function MyComponent() {
-    _classCallCheck(this, MyComponent);
+  function Recipe() {
+    _classCallCheck(this, Recipe);
 
-    return _possibleConstructorReturn(this, (MyComponent.__proto__ || Object.getPrototypeOf(MyComponent)).call(this));
+    return _possibleConstructorReturn(this, (Recipe.__proto__ || Object.getPrototypeOf(Recipe)).call(this));
   }
 
-  _createClass(MyComponent, [{
+  _createClass(Recipe, [{
     key: "render",
     value: function render() {
       return React.createElement(
@@ -42,7 +42,7 @@ var MyComponent = function (_React$Component) {
     }
   }]);
 
-  return MyComponent;
+  return Recipe;
 }(React.Component);
 
 var RecipeImage = function (_React$Component2) {

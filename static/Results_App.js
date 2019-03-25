@@ -56,24 +56,29 @@ var Card = function (_React$Component) {
           "div",
           null,
           React.createElement(
-            "p",
-            null,
-            this.id
-          ),
-          React.createElement(
             "h2",
             null,
-            this.name
+            this.props.name
           ),
           React.createElement(
             "p",
             null,
-            this.desc
+            this.props.id
           ),
           React.createElement(
             "p",
             null,
-            this.date
+            "img"
+          ),
+          React.createElement(
+            "p",
+            null,
+            this.props.desc
+          ),
+          React.createElement(
+            "p",
+            null,
+            this.props.date
           )
         )
       );
