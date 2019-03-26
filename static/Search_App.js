@@ -54,16 +54,16 @@ const styles = theme => ({
 // This grabs the DOM element to be used to mount React components.
 var contentNode = document.getElementById("contents");
 
-var MyComponent = function (_React$Component) {
-  _inherits(MyComponent, _React$Component);
+var Search = function (_React$Component) {
+  _inherits(Search, _React$Component);
 
-  function MyComponent() {
-    _classCallCheck(this, MyComponent);
+  function Search() {
+    _classCallCheck(this, Search);
 
-    return _possibleConstructorReturn(this, (MyComponent.__proto__ || Object.getPrototypeOf(MyComponent)).call(this));
+    return _possibleConstructorReturn(this, (Search.__proto__ || Object.getPrototypeOf(Search)).call(this));
   }
 
-  _createClass(MyComponent, [{
+  _createClass(Search, [{
     key: 'render',
     value: function render() {
       return React.createElement(
@@ -77,7 +77,7 @@ var MyComponent = function (_React$Component) {
         React.createElement(
           'div',
           null,
-          React.createElement(SearchBar, {
+          React.createElement(Search, {
             onChange: function onChange() {
               return console.log('onChange');
             },
@@ -97,10 +97,10 @@ var MyComponent = function (_React$Component) {
     }
   }]);
 
-  return MyComponent;
+  return Search;
 }(React.Component);
 
 // This renders the JSX component inside the content node:
 
 
-ReactDOM.render(React.createElement(MyComponent, null), contentNode);
+ReactDOM.render(React.createElement(Search, null), contentNode);

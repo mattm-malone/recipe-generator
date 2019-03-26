@@ -44,30 +44,24 @@ const styles = theme => ({
 // This grabs the DOM element to be used to mount React components.
 var contentNode = document.getElementById("contents");
 
-class MyComponent extends React.Component {
-  constructor() {
-    super();
-  }
+class Search extends React.Component {
+  updateSearch = search => {
+    this.setState({ search });
+  };
 
   render() {
+    <h1>my view</h1> 
+    const { search } = this.state;
+
     return (
-      <div>
-        <h1>My View 01</h1>
-        <div>
-        <SearchBar
-      onChange={() => console.log('onChange')}
-      onRequestSearch={() => console.log('onRequestSearch')}
-      onClear={() => console.log('onClear')}
-      style={{
-        margin: '0 auto',
-        maxWidth: 800
-      }}
+      <SearchBar
+        placeholder="Type Here..."
+        onChangeText={this.updateSearch}
+        value={search}
       />
-      </div>
-      </div>
     );
   }
 }
 
 // This renders the JSX component inside the content node:
-ReactDOM.render(<MyComponent />, contentNode);
+ReactDOM.render(<Search />, contentNode);

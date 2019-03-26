@@ -44,4 +44,4 @@ class RecipeDescription extends React.Component {
 
 
 // This renders the JSX component inside the content node:
-ReactDOM.render(<MyComponent />, contentNode);
+ReactDOM.render(<Recipe />, contentNode);

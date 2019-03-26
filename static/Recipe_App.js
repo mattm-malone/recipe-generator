@@ -94,4 +94,4 @@ var RecipeDescription = function (_React$Component3) {
 // This renders the JSX component inside the content node:
 
 
-ReactDOM.render(React.createElement(MyComponent, null), contentNode);
+ReactDOM.render(React.createElement(Recipe, null), contentNode);

@@ -1,50 +1,18 @@
 // This is a place holder for the initial application state.
+var idNum = 3;
 
-const recipes = [
-  {
-    id: 0,
-    name: "chicken",
-    date: "2018",
-    desc: "Yum yum"
-  },
-  {
-    id: 1,
-    name: "Steak",
-    date: "2015",
-    desc: "Medium Rare"
-  },
-  {
-    id: 2,
-    name: "Pasta",
-    date: "1990",
-    desc: "Italian"
-  },
-  {
-    id: 3,
-    name: "Shrimp",
-    date: "2018",
-    desc: "Yum yum"
-  },
-  {
-    id: 4,
-    name: "Tomatos",
-    date: "2018",
-    desc: "Yum yum"
-  }
-];
-
+var contentNode = document.getElementById("contents");
 
 class Card extends React.Component {
 
   render() {
     return (
-      <div className="bg-light-green dib br3 pa3 ma2 grow">
+      <div className="card">
         <div>
           <h2>{this.props.name}</h2>
-          <p>{this.props.id}</p>
-          <p>img</p>
-          <p>{this.props.desc}</p>
-          <p>{this.props.date}</p>
+          <p>insert image here></p>
+          <p>Description:<br></br>{this.props.desc}</p>
+          <p>Date Submitted: {this.props.date}</p>
         </div>
       </div>
     );
@@ -66,7 +34,7 @@ const CardList = ({ recipes }) => {
       desc={recipe.desc}
       date={recipe.date} />
   ));
-
+  
   return (
     <div>
       {cardsArray}
@@ -78,11 +46,52 @@ CardList.propTypes = {
   recipes: React.PropTypes.array.isRequired
 };
 
+var recipes = [{id:0,name:"chicken",date:"2018",desc:"Yum yum"},
+{id:1,name:"Steak",date:"2015",desc:"Medium Rare"},
+{id:2,name:"Pasta",date:"1990",desc:"Italian"}];
+
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      Recipes: recipes,
+    };
+    this.createTestRecipe = this.createTestRecipe.bind(this);
+  }
+
+  createRecipe(newRecipe) {
+    const newRecipes = this.state.Recipes.slice();
+    newRecipe.id = this.state.Recipes.length + 1;
+    newRecipes.push(newRecipe);
+    this.setState({ Recipes: newRecipes }); 
+     
+  }
+
+  createTestRecipe() {
+    this.createRecipe({
+      name: 'New Recipe', desc: 'Pizza', 
+      date: '2019'});  
+  }
+
+  render() {
+    return (
+      <div>
+        <h1>Recipe List View</h1>
+        <CardList recipes={this.state.Recipes} />
+        <button onClick={this.createTestRecipe}>Add</button> 
+      </div>
+    );
+  }
+}
+
 
 // This renders the JSX component inside the content node:
 ReactDOM.render(
-  <div>
-    <CardList recipes={recipes} />
-  </div>,
-  document.getElementById("contents")
+  <div className='container'>
+  <App/>
+  </div>,contentNode
 )
+
+// ReactDOM.render(
+//   <addButton/>, document.getElementById("contents")
+// );

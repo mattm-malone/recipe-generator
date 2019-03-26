@@ -9,33 +9,9 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 // This is a place holder for the initial application state.
+var idNum = 3;
 
-var recipes = [{
-  id: 0,
-  name: "chicken",
-  date: "2018",
-  desc: "Yum yum"
-}, {
-  id: 1,
-  name: "Steak",
-  date: "2015",
-  desc: "Medium Rare"
-}, {
-  id: 2,
-  name: "Pasta",
-  date: "1990",
-  desc: "Italian"
-}, {
-  id: 3,
-  name: "Shrimp",
-  date: "2018",
-  desc: "Yum yum"
-}, {
-  id: 4,
-  name: "Tomatos",
-  date: "2018",
-  desc: "Yum yum"
-}];
+var contentNode = document.getElementById("contents");
 
 var Card = function (_React$Component) {
   _inherits(Card, _React$Component);
@@ -51,7 +27,7 @@ var Card = function (_React$Component) {
     value: function render() {
       return React.createElement(
         "div",
-        { className: "bg-light-green dib br3 pa3 ma2 grow" },
+        { className: "card" },
         React.createElement(
           "div",
           null,
@@ -63,21 +39,19 @@ var Card = function (_React$Component) {
           React.createElement(
             "p",
             null,
-            this.props.id
+            "insert image here>"
           ),
           React.createElement(
             "p",
             null,
-            "img"
-          ),
-          React.createElement(
-            "p",
-            null,
+            "Description:",
+            React.createElement("br", null),
             this.props.desc
           ),
           React.createElement(
             "p",
             null,
+            "Date Submitted: ",
             this.props.date
           )
         )
@@ -117,9 +91,71 @@ CardList.propTypes = {
   recipes: React.PropTypes.array.isRequired
 };
 
+var recipes = [{ id: 0, name: "chicken", date: "2018", desc: "Yum yum" }, { id: 1, name: "Steak", date: "2015", desc: "Medium Rare" }, { id: 2, name: "Pasta", date: "1990", desc: "Italian" }];
+
+var App = function (_React$Component2) {
+  _inherits(App, _React$Component2);
+
+  function App(props) {
+    _classCallCheck(this, App);
+
+    var _this2 = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
+
+    _this2.state = {
+      Recipes: recipes
+    };
+    _this2.createTestRecipe = _this2.createTestRecipe.bind(_this2);
+    return _this2;
+  }
+
+  _createClass(App, [{
+    key: "createRecipe",
+    value: function createRecipe(newRecipe) {
+      var newRecipes = this.state.Recipes.slice();
+      newRecipe.id = this.state.Recipes.length + 1;
+      newRecipes.push(newRecipe);
+      this.setState({ Recipes: newRecipes });
+    }
+  }, {
+    key: "createTestRecipe",
+    value: function createTestRecipe() {
+      this.createRecipe({
+        name: 'New Recipe', desc: 'Pizza',
+        date: '2019' });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return React.createElement(
+        "div",
+        null,
+        React.createElement(
+          "h1",
+          null,
+          "Recipe List View"
+        ),
+        React.createElement(CardList, { recipes: this.state.Recipes }),
+        React.createElement(
+          "button",
+          { onClick: this.createTestRecipe },
+          "Add"
+        )
+      );
+    }
+  }]);
+
+  return App;
+}(React.Component);
+
 // This renders the JSX component inside the content node:
+
+
 ReactDOM.render(React.createElement(
   "div",
-  null,
-  React.createElement(CardList, { recipes: recipes })
-), document.getElementById("contents"));
+  { className: "container" },
+  React.createElement(App, null)
+), contentNode);
+
+// ReactDOM.render(
+//   <addButton/>, document.getElementById("contents")
+// );
