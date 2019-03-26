@@ -9,20 +9,18 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 // This is a place holder for the initial application state.
-var idNum = 3;
-
 var contentNode = document.getElementById("contents");
 
-var Card = function (_React$Component) {
-  _inherits(Card, _React$Component);
+var Recipe = function (_React$Component) {
+  _inherits(Recipe, _React$Component);
 
-  function Card() {
-    _classCallCheck(this, Card);
+  function Recipe() {
+    _classCallCheck(this, Recipe);
 
-    return _possibleConstructorReturn(this, (Card.__proto__ || Object.getPrototypeOf(Card)).apply(this, arguments));
+    return _possibleConstructorReturn(this, (Recipe.__proto__ || Object.getPrototypeOf(Recipe)).apply(this, arguments));
   }
 
-  _createClass(Card, [{
+  _createClass(Recipe, [{
     key: "render",
     value: function render() {
       return React.createElement(
@@ -59,10 +57,10 @@ var Card = function (_React$Component) {
     }
   }]);
 
-  return Card;
+  return Recipe;
 }(React.Component);
 
-Card.propTypes = {
+Recipe.propTypes = {
   id: React.PropTypes.number.isRequired,
   name: React.PropTypes.string.isRequired,
   desc: React.PropTypes.string.isRequired,
@@ -73,7 +71,7 @@ var CardList = function CardList(_ref) {
   var recipes = _ref.recipes;
 
   var cardsArray = recipes.map(function (recipe) {
-    return React.createElement(Card, { key: recipe.id,
+    return React.createElement(Recipe, { key: recipe.id,
       id: recipe.id,
       name: recipe.name,
       desc: recipe.desc,

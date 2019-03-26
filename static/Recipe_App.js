@@ -9,6 +9,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 // This is a place holder for the initial application state.
+
 var recipeDesc = [{ text: "chikcne and cheese", Calories: "$499", vitamins: true, nutrients: "carbs" }];
 
 // This grabs the DOM element to be used to mount React components.
@@ -17,13 +18,23 @@ var contentNode = document.getElementById("contents");
 var Recipe = function (_React$Component) {
   _inherits(Recipe, _React$Component);
 
-  function Recipe() {
+  function Recipe(props) {
     _classCallCheck(this, Recipe);
 
-    return _possibleConstructorReturn(this, (Recipe.__proto__ || Object.getPrototypeOf(Recipe)).call(this));
+    var _this = _possibleConstructorReturn(this, (Recipe.__proto__ || Object.getPrototypeOf(Recipe)).call(this, props));
+
+    _this.state = {
+      recipe: recipeDesc
+    };
+    return _this;
   }
 
   _createClass(Recipe, [{
+    key: "addRecipeToList",
+    value: function addRecipeToList() {
+      alert('You added a recipe!');
+    }
+  }, {
     key: "render",
     value: function render() {
       return React.createElement(
@@ -37,7 +48,12 @@ var Recipe = function (_React$Component) {
         React.createElement(RecipeImage, null),
         React.createElement("hr", null),
         React.createElement(RecipeDescription, null),
-        React.createElement("hr", null)
+        React.createElement("hr", null),
+        React.createElement(
+          "button",
+          { onClick: this.addRecipeToList },
+          "Add To List"
+        )
       );
     }
   }]);

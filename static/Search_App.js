@@ -8,99 +8,55 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-//import SearchBar from 'material-ui-search-bar-enhanced'
-
-// This is a place holder for the initial application state.
-/*
-const styles = theme => ({
-  root: {
-      width: '100%',
-  },
-  grow: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginLeft: -12,
-    marginRight: 20,
-  },
-  search: {
-    position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.white, 0.15),
-    '&:hover': {
-      backgroundColor: fade(theme.palette.common.white, 0.25),
-    },
-    marginRight: theme.spacing.unit * 2,
-    marginLeft: 0,
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing.unit * 3,
-      width: 'auto',
-    },
-  },
-  searchIcon: {
-    width: theme.spacing.unit * 9,
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-})
-*/
-;
-
 // This grabs the DOM element to be used to mount React components.
 var contentNode = document.getElementById("contents");
 
-var Search = function (_React$Component) {
-  _inherits(Search, _React$Component);
+var App = function (_React$Component) {
+  _inherits(App, _React$Component);
 
-  function Search() {
-    _classCallCheck(this, Search);
+  function App() {
+    _classCallCheck(this, App);
 
-    return _possibleConstructorReturn(this, (Search.__proto__ || Object.getPrototypeOf(Search)).call(this));
+    var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this));
+
+    _this.state = { value: '' };
+    _this.handleChange = _this.handleChange.bind(_this);
+    _this.handleSubmit = _this.handleSubmit.bind(_this);
+    return _this;
   }
 
-  _createClass(Search, [{
+  _createClass(App, [{
+    key: 'handleChange',
+    value: function handleChange(event) {
+      this.setState({ value: event.target.value });
+    }
+  }, {
+    key: 'handleSubmit',
+    value: function handleSubmit(event) {
+      alert('A Recipe Query Was Submitted: ' + this.state.value);
+      event.preventDefault();
+    }
+  }, {
     key: 'render',
     value: function render() {
       return React.createElement(
-        'div',
-        null,
+        'form',
+        { onSubmit: this.handleSubmit },
         React.createElement(
-          'h1',
+          'label',
           null,
-          'My View 01'
+          'Recipe:',
+          React.createElement('input', { type: 'text', value: this.state.value, onChange: this.handleChange })
         ),
-        React.createElement(
-          'div',
-          null,
-          React.createElement(Search, {
-            onChange: function onChange() {
-              return console.log('onChange');
-            },
-            onRequestSearch: function onRequestSearch() {
-              return console.log('onRequestSearch');
-            },
-            onClear: function onClear() {
-              return console.log('onClear');
-            },
-            style: {
-              margin: '0 auto',
-              maxWidth: 800
-            }
-          })
-        )
+        React.createElement('input', { type: 'submit', value: 'Submit' })
       );
     }
   }]);
 
-  return Search;
+  return App;
 }(React.Component);
 
 // This renders the JSX component inside the content node:
 
 
-ReactDOM.render(React.createElement(Search, null), contentNode);
+ReactDOM.render(React.createElement(App, null), contentNode);

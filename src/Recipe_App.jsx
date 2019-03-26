@@ -1,17 +1,22 @@
 // This is a place holder for the initial application state.
+
 const recipeDesc = [
-
     {text: "chikcne and cheese", Calories: "$499", vitamins: true, nutrients: "carbs"},
-
-
 ];
 
 // This grabs the DOM element to be used to mount React components.
 var contentNode = document.getElementById("contents");
 
 class Recipe extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    this.state = {
+      recipe: recipeDesc
+    };
+  }
+
+  addRecipeToList() {
+    alert('You added a recipe!')
   }
 
   render() {
@@ -22,11 +27,11 @@ class Recipe extends React.Component {
         <hr />
         <RecipeDescription />
         <hr />
+        <button onClick={this.addRecipeToList}>Add To List</button> 
       </div>
     );
   }
 }
-
 
 class RecipeImage extends React.Component {
   render() {

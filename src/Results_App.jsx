@@ -1,9 +1,7 @@
 // This is a place holder for the initial application state.
-var idNum = 3;
-
 var contentNode = document.getElementById("contents");
 
-class Card extends React.Component {
+class Recipe extends React.Component {
 
   render() {
     return (
@@ -19,7 +17,7 @@ class Card extends React.Component {
   }
 }
 
-Card.propTypes = {
+Recipe.propTypes = {
   id: React.PropTypes.number.isRequired,
   name: React.PropTypes.string.isRequired,
   desc: React.PropTypes.string.isRequired,
@@ -28,7 +26,7 @@ Card.propTypes = {
 
 const CardList = ({ recipes }) => {
   const cardsArray = recipes.map(recipe => (
-    <Card key={recipe.id}
+    <Recipe key={recipe.id}
       id={recipe.id}
       name={recipe.name}
       desc={recipe.desc}
