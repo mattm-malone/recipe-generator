@@ -34,6 +34,7 @@ var App = function (_React$Component) {
     key: 'handleSubmit',
     value: function handleSubmit(event) {
       alert('A Recipe Query Was Submitted: ' + this.state.value);
+      console.log(this.state);
       event.preventDefault();
     }
   }, {

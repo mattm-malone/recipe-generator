@@ -1,3 +1,4 @@
+
 // This is a place holder for the initial application state.
 var contentNode = document.getElementById("contents");
 
@@ -69,13 +70,14 @@ class App extends React.Component {
     this.createRecipe({
       name: 'New Recipe', desc: 'Pizza', 
       date: '2019'});  
+    alert(this.state.Recipes);
   }
 
   render() {
     return (
       <div>
         <h1>Recipe List View</h1>
-        <CardList recipes={this.state.Recipes} />
+        <CardList recipes={this.state.Recipes}/>
         <button onClick={this.createTestRecipe}>Add</button> 
       </div>
     );

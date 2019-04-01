@@ -1,4 +1,3 @@
-
 // This grabs the DOM element to be used to mount React components.
 var contentNode = document.getElementById("contents");
 
@@ -16,6 +15,7 @@ class App extends React.Component {
 
   handleSubmit(event) {
     alert('A Recipe Query Was Submitted: ' + this.state.value);
+    console.log(this.state);
     event.preventDefault();
   }
 

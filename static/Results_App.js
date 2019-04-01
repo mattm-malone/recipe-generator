@@ -120,6 +120,7 @@ var App = function (_React$Component2) {
       this.createRecipe({
         name: 'New Recipe', desc: 'Pizza',
         date: '2019' });
+      alert(this.state.Recipes);
     }
   }, {
     key: "render",
