@@ -12,12 +12,14 @@
   "license": "ISC",
   "dependencies": {
     "@material-ui/core": "^3.9.2",
+    "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "browserify": "^16.2.3",
     "express": "^4.16.4",
     "material-ui-search-bar-enhanced": "^0.5.3",
     "mongodb": "^3.2.2",
     "prop-types": "^15.7.2",
+    "react-http-request": "^2.0.0",
     "react-native-search-bar": "^3.4.2"
   },
   "devDependencies": {

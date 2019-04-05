@@ -53,7 +53,8 @@ var Recipe = function (_React$Component) {
           "button",
           { onClick: this.addRecipeToList },
           "Add To List"
-        )
+        ),
+        React.createElement("div", null)
       );
     }
   }]);

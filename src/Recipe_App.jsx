@@ -28,6 +28,12 @@ class Recipe extends React.Component {
         <RecipeDescription />
         <hr />
         <button onClick={this.addRecipeToList}>Add To List</button> 
+        
+        <div>
+
+
+        </div>
+
       </div>
     );
   }

@@ -9,9 +9,12 @@ class Recipe extends React.Component {
       <div className="card">
         <div>
           <h2>{this.props.name}</h2>
-          <p>insert image here></p>
-          <p>Description:<br></br>{this.props.desc}</p>
-          <p>Date Submitted: {this.props.date}</p>
+          <img width='400px' src={this.props.imageURL}></img>
+          <p>Description:<br></br>{this.props.description}</p>
+          <p>Number of servings: {this.props.numberOfServings}</p>
+          <p>Time to prepare: {this.props.totalTime}</p>
+          <p>Source URL: {this.props.sourceRecipeURL}</p>
+          <p>Rating: {this.props.rating}</p>
         </div>
       </div>
     );
@@ -21,8 +24,12 @@ class Recipe extends React.Component {
 Recipe.propTypes = {
   id: React.PropTypes.number.isRequired,
   name: React.PropTypes.string.isRequired,
-  desc: React.PropTypes.string.isRequired,
-  date: React.PropTypes.string.isRequired
+  imageURL: React.PropTypes.string.isRequired,
+  description: React.PropTypes.string.isRequired,
+  numberOfServings: React.PropTypes.number.isRequired,
+  sourceRecipeURL : React.PropTypes.string.isRequired,
+  totalTime: React.PropTypes.number.isRequired,
+  rating: React.PropTypes.number.isRequired
 };
 
 const CardList = ({ recipes }) => {
@@ -30,8 +37,12 @@ const CardList = ({ recipes }) => {
     <Recipe key={recipe.id}
       id={recipe.id}
       name={recipe.name}
-      desc={recipe.desc}
-      date={recipe.date} />
+      description={recipe.description}
+      imageURL={recipe.imageURL}
+      numberOfServings = {recipe.numberOfServings}
+      sourceRecipeURL={recipe.sourceRecipeURL}
+      totalTime={recipe.totalTime}
+      rating={recipe.rating}/>
   ));
   
   return (
@@ -45,17 +56,34 @@ CardList.propTypes = {
   recipes: React.PropTypes.array.isRequired
 };
 
-var recipes = [{id:0,name:"chicken",date:"2018",desc:"Yum yum"},
-{id:1,name:"Steak",date:"2015",desc:"Medium Rare"},
-{id:2,name:"Pasta",date:"1990",desc:"Italian"}];
-
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      Recipes: recipes,
+      Recipes: [],
     };
     this.createTestRecipe = this.createTestRecipe.bind(this);
+  }
+
+  componentDidMount() {
+    this.loadData();
+  }
+
+  loadData() {
+    fetch('/api/recipes').then(response => {
+      if (response.ok) {
+        response.json().then(data => {
+          console.log("Total count of records:", data._metadata.total_count);
+          this.setState({ Recipes: data.records });
+        });
+      } else {
+        response.json().then(error => {
+          alert("Failed to fetch recipes:" + error.message)
+        });
+      }
+    }).catch(err => {
+      alert("Error in fetching data from server:", err);
+    });
   }
 
   createRecipe(newRecipe) {
@@ -68,9 +96,14 @@ class App extends React.Component {
 
   createTestRecipe() {
     this.createRecipe({
-      name: 'New Recipe', desc: 'Pizza', 
-      date: '2019'});  
-    alert(this.state.Recipes);
+      name: 'Pizza Pie', 
+      description: 'È italiano, amico mio', 
+      date: '2019',
+      numberOfServings: 8,
+      imageURL: 'https://www.seriouseats.com/assets_c/2015/01/20150127-san-francisco-pizza-by-the-slice-pizza-shop-thumb-1500xauto-418467.jpg',
+      sourceRecipeURL: 'https://google.com',
+      totalTime: 25,
+      rating:4});  
   }
 
   render() {

@@ -34,23 +34,37 @@ var Recipe = function (_React$Component) {
             null,
             this.props.name
           ),
-          React.createElement(
-            "p",
-            null,
-            "insert image here>"
-          ),
+          React.createElement("img", { width: "400px", src: this.props.imageURL }),
           React.createElement(
             "p",
             null,
             "Description:",
             React.createElement("br", null),
-            this.props.desc
+            this.props.description
           ),
           React.createElement(
             "p",
             null,
-            "Date Submitted: ",
-            this.props.date
+            "Number of servings: ",
+            this.props.numberOfServings
+          ),
+          React.createElement(
+            "p",
+            null,
+            "Time to prepare: ",
+            this.props.totalTime
+          ),
+          React.createElement(
+            "p",
+            null,
+            "Source URL: ",
+            this.props.sourceRecipeURL
+          ),
+          React.createElement(
+            "p",
+            null,
+            "Rating: ",
+            this.props.rating
           )
         )
       );
@@ -63,8 +77,12 @@ var Recipe = function (_React$Component) {
 Recipe.propTypes = {
   id: React.PropTypes.number.isRequired,
   name: React.PropTypes.string.isRequired,
-  desc: React.PropTypes.string.isRequired,
-  date: React.PropTypes.string.isRequired
+  imageURL: React.PropTypes.string.isRequired,
+  description: React.PropTypes.string.isRequired,
+  numberOfServings: React.PropTypes.number.isRequired,
+  sourceRecipeURL: React.PropTypes.string.isRequired,
+  totalTime: React.PropTypes.number.isRequired,
+  rating: React.PropTypes.number.isRequired
 };
 
 var CardList = function CardList(_ref) {
@@ -74,8 +92,12 @@ var CardList = function CardList(_ref) {
     return React.createElement(Recipe, { key: recipe.id,
       id: recipe.id,
       name: recipe.name,
-      desc: recipe.desc,
-      date: recipe.date });
+      description: recipe.description,
+      imageURL: recipe.imageURL,
+      numberOfServings: recipe.numberOfServings,
+      sourceRecipeURL: recipe.sourceRecipeURL,
+      totalTime: recipe.totalTime,
+      rating: recipe.rating });
   });
 
   return React.createElement(
@@ -89,8 +111,6 @@ CardList.propTypes = {
   recipes: React.PropTypes.array.isRequired
 };
 
-var recipes = [{ id: 0, name: "chicken", date: "2018", desc: "Yum yum" }, { id: 1, name: "Steak", date: "2015", desc: "Medium Rare" }, { id: 2, name: "Pasta", date: "1990", desc: "Italian" }];
-
 var App = function (_React$Component2) {
   _inherits(App, _React$Component2);
 
@@ -100,13 +120,38 @@ var App = function (_React$Component2) {
     var _this2 = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
     _this2.state = {
-      Recipes: recipes
+      Recipes: []
     };
     _this2.createTestRecipe = _this2.createTestRecipe.bind(_this2);
     return _this2;
   }
 
   _createClass(App, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.loadData();
+    }
+  }, {
+    key: "loadData",
+    value: function loadData() {
+      var _this3 = this;
+
+      fetch('/api/recipes').then(function (response) {
+        if (response.ok) {
+          response.json().then(function (data) {
+            console.log("Total count of records:", data._metadata.total_count);
+            _this3.setState({ Recipes: data.records });
+          });
+        } else {
+          response.json().then(function (error) {
+            alert("Failed to fetch recipes:" + error.message);
+          });
+        }
+      }).catch(function (err) {
+        alert("Error in fetching data from server:", err);
+      });
+    }
+  }, {
     key: "createRecipe",
     value: function createRecipe(newRecipe) {
       var newRecipes = this.state.Recipes.slice();
@@ -118,9 +163,14 @@ var App = function (_React$Component2) {
     key: "createTestRecipe",
     value: function createTestRecipe() {
       this.createRecipe({
-        name: 'New Recipe', desc: 'Pizza',
-        date: '2019' });
-      alert(this.state.Recipes);
+        name: 'Pizza Pie',
+        description: 'È italiano, amico mio',
+        date: '2019',
+        numberOfServings: 8,
+        imageURL: 'https://www.seriouseats.com/assets_c/2015/01/20150127-san-francisco-pizza-by-the-slice-pizza-shop-thumb-1500xauto-418467.jpg',
+        sourceRecipeURL: 'https://google.com',
+        totalTime: 25,
+        rating: 4 });
     }
   }, {
     key: "render",
