@@ -35,9 +35,9 @@ class App extends React.Component {
     this.setState({value: event.target.value});
   }
 
-  makeQuery(query) {
-    const Http = new
-  }
+  // makeQuery(query) {
+  //   const Http = new
+  // }
 
   handleSubmit(event) {
     alert('A Recipe Query Was Submitted: ' + this.state.value);
@@ -56,9 +56,6 @@ class App extends React.Component {
         </label>
         <input type="submit" value="Submit" />
       </form>
-      <div>
-
-      </div>
     );
   }
 }

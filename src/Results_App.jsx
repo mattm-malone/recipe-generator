@@ -60,7 +60,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      Recipes: [],
+      recipeList: [],
     };
     this.createTestRecipe = this.createTestRecipe.bind(this);
   }
@@ -74,7 +74,7 @@ class App extends React.Component {
       if (response.ok) {
         response.json().then(data => {
           console.log("Total count of records:", data._metadata.total_count);
-          this.setState({ Recipes: data.records });
+          this.setState({ recipeList: data.records });
         });
       } else {
         response.json().then(error => {
@@ -87,12 +87,27 @@ class App extends React.Component {
   }
 
   createRecipe(newRecipe) {
-    const newRecipes = this.state.Recipes.slice();
-    newRecipe.id = this.state.Recipes.length + 1;
-    newRecipes.push(newRecipe);
-    this.setState({ Recipes: newRecipes }); 
-     
-  }
+    newRecipe.id = this.state.recipeList.length + 1;
+    
+    fetch('/api/recipes', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(newRecipe),
+    })
+      .then(res => {
+        if (res.ok) {
+          res.json()
+              const newRecipes = this.state.recipeList.concat(newRecipe);
+              this.setState({ recipeList: newRecipes });
+        }
+        else {
+          res.json()
+            .then(error => {
+              alert('Failed to add recipe: ' + error.message);
+            });
+        }
+      });
+   }
 
   createTestRecipe() {
     this.createRecipe({
@@ -110,7 +125,7 @@ class App extends React.Component {
     return (
       <div>
         <h1>Recipe List View</h1>
-        <CardList recipes={this.state.Recipes}/>
+        <CardList recipes={this.state.recipeList}/>
         <button onClick={this.createTestRecipe}>Add</button> 
       </div>
     );

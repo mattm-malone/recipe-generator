@@ -38,7 +38,7 @@ app.post('/api/recipes', (req, res) => {
 
   db.collection('Recipes').insert
   
-  One(newRecipes).then(result =>
+  db.collection('Recipes').insertOne(newRecipes).then(result =>
     db.collection('Recipes').find({ id: result.insertedId }).limit(1).next()
   ).then(newRecipes => {
     res.json(newRecipes);

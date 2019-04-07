@@ -120,7 +120,7 @@ var App = function (_React$Component2) {
     var _this2 = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
     _this2.state = {
-      Recipes: []
+      recipeList: []
     };
     _this2.createTestRecipe = _this2.createTestRecipe.bind(_this2);
     return _this2;
@@ -140,7 +140,7 @@ var App = function (_React$Component2) {
         if (response.ok) {
           response.json().then(function (data) {
             console.log("Total count of records:", data._metadata.total_count);
-            _this3.setState({ Recipes: data.records });
+            _this3.setState({ recipeList: data.records });
           });
         } else {
           response.json().then(function (error) {
@@ -154,10 +154,25 @@ var App = function (_React$Component2) {
   }, {
     key: "createRecipe",
     value: function createRecipe(newRecipe) {
-      var newRecipes = this.state.Recipes.slice();
-      newRecipe.id = this.state.Recipes.length + 1;
-      newRecipes.push(newRecipe);
-      this.setState({ Recipes: newRecipes });
+      var _this4 = this;
+
+      newRecipe.id = this.state.recipeList.length + 1;
+
+      fetch('/api/recipes', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newRecipe)
+      }).then(function (res) {
+        if (res.ok) {
+          res.json();
+          var newRecipes = _this4.state.recipeList.concat(newRecipe);
+          _this4.setState({ recipeList: newRecipes });
+        } else {
+          res.json().then(function (error) {
+            alert('Failed to add recipe: ' + error.message);
+          });
+        }
+      });
     }
   }, {
     key: "createTestRecipe",
@@ -183,7 +198,7 @@ var App = function (_React$Component2) {
           null,
           "Recipe List View"
         ),
-        React.createElement(CardList, { recipes: this.state.Recipes }),
+        React.createElement(CardList, { recipes: this.state.recipeList }),
         React.createElement(
           "button",
           { onClick: this.createTestRecipe },
