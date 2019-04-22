@@ -1,5 +1,5 @@
 // This grabs the DOM element to be used to mount React components.
-import axios from 'axios'
+//import axios from 'axios'
 var contentNode = document.getElementById("contents");
 const YOUR_APP_KEY = '47bf3044e4da401ea23c827c1f66ac1d'
 const YOUR_ID = '9444c6c1'
@@ -35,10 +35,6 @@ class App extends React.Component {
     this.setState({value: event.target.value});
   }
 
-  // makeQuery(query) {
-  //   const Http = new
-  // }
-
   handleSubmit(event) {
     alert('A Recipe Query Was Submitted: ' + this.state.value);
     console.log(this.state);
@@ -50,11 +46,13 @@ class App extends React.Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
+      <div class="form-group">
         <label>
           Recipe:
           <input type="text" value={this.state.value} onChange={this.handleChange} />
         </label>
         <input type="submit" value="Submit" />
+        </div>
       </form>
     );
   }
