@@ -11,8 +11,8 @@ class Recipe extends React.Component {
       <div className="card">
         <div>
           <h2>{this.props.name}</h2>
-          <img src={this.props.images[0]}></img>
-          <p>Description:<br></br>{this.props.desc}</p>
+          <img width='400px' src={this.props.imageURL}></img>
+          <p>Description:<br></br>{this.props.description}</p>
           <p>Number of servings: {this.props.numberOfServings}</p>
           <p>Time to prepare: {this.props.totalTime}</p>
           <p>Source URL: {this.props.sourceRecipeURL}</p>
@@ -36,22 +36,41 @@ class App extends React.Component {
   }
 
   handleSubmit(event) {
-    alert('A Recipe Query Was Submitted: ' + this.state.value);
-    console.log(this.state);
-    axios.get('http://api.yummly.com/v1/api/recipes?_app_id=app-id&_app_key=app-key&your _search_parameters')
-    .then(response => console.log(response))
     event.preventDefault();
-  }
+    let query = encodeURI(this.state.value)
+    fetch(`https://api.edamam.com/search?q=${query}&app_id=2e98039e&app_key=68a92e2d6de1a6d18e6fc3499f1aa18d`)
+    .then(
+    function(response) {
+      //console.log(response);
+      if (response.status !== 200) {
+        console.log('Looks like there was a problem. Status Code: ' +
+          response.status);
+        return false;
+      }
+
+      // Examine the text in the response
+      response.json().then(function(data) {
+        console.log(data);
+      });
+    }
+  )
+  .catch(function(err) {
+    console.log('Fetch Error :-S', err);
+  });
+    }
 
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-      <div class="form-group">
-        <label>
-          Recipe:
-          <input type="text" value={this.state.value} onChange={this.handleChange} />
-        </label>
-        <input type="submit" value="Submit" />
+
+        <div className="form-group">
+        <div className = "row">
+          <label htmlFor="search-bar">Input Ingredients:</label>
+          <input id="search-bar" type="text" className = "form-control" value={this.state.value} onChange={this.handleChange} placeholder="Enter Ingredients"/>
+        <div className="row">
+          <button type="submit" className="btn btn-primary">Submit</button>
+        </div>
+        </div>
         </div>
       </form>
     );

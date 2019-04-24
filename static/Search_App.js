@@ -37,13 +37,13 @@ var Recipe = function (_React$Component) {
             null,
             this.props.name
           ),
-          React.createElement('img', { src: this.props.images[0] }),
+          React.createElement('img', { width: '400px', src: this.props.imageURL }),
           React.createElement(
             'p',
             null,
             'Description:',
             React.createElement('br', null),
-            this.props.desc
+            this.props.description
           ),
           React.createElement(
             'p',
@@ -99,12 +99,22 @@ var App = function (_React$Component2) {
   }, {
     key: 'handleSubmit',
     value: function handleSubmit(event) {
-      alert('A Recipe Query Was Submitted: ' + this.state.value);
-      console.log(this.state);
-      axios.get('http://api.yummly.com/v1/api/recipes?_app_id=app-id&_app_key=app-key&your _search_parameters').then(function (response) {
-        return console.log(response);
-      });
       event.preventDefault();
+      var query = encodeURI(this.state.value);
+      fetch('https://api.edamam.com/search?q=' + query + '&app_id=2e98039e&app_key=68a92e2d6de1a6d18e6fc3499f1aa18d').then(function (response) {
+        //console.log(response);
+        if (response.status !== 200) {
+          console.log('Looks like there was a problem. Status Code: ' + response.status);
+          return false;
+        }
+
+        // Examine the text in the response
+        response.json().then(function (data) {
+          console.log(data);
+        });
+      }).catch(function (err) {
+        console.log('Fetch Error :-S', err);
+      });
     }
   }, {
     key: 'render',
@@ -114,14 +124,26 @@ var App = function (_React$Component2) {
         { onSubmit: this.handleSubmit },
         React.createElement(
           'div',
-          { 'class': 'form-group' },
+          { className: 'form-group' },
           React.createElement(
-            'label',
-            null,
-            'Recipe:',
-            React.createElement('input', { type: 'text', value: this.state.value, onChange: this.handleChange })
-          ),
-          React.createElement('input', { type: 'submit', value: 'Submit' })
+            'div',
+            { className: 'row' },
+            React.createElement(
+              'label',
+              { htmlFor: 'search-bar' },
+              'Input Ingredients:'
+            ),
+            React.createElement('input', { id: 'search-bar', type: 'text', className: 'form-control', value: this.state.value, onChange: this.handleChange, placeholder: 'Enter Ingredients' }),
+            React.createElement(
+              'div',
+              { className: 'row' },
+              React.createElement(
+                'button',
+                { type: 'submit', className: 'btn btn-primary' },
+                'Submit'
+              )
+            )
+          )
         )
       );
     }
