@@ -26,48 +26,68 @@ var Recipe = function (_React$Component) {
   _createClass(Recipe, [{
     key: 'render',
     value: function render() {
+      var _this2 = this;
+
       return React.createElement(
         'div',
-        { className: 'card' },
+        { className: 'card', style: { width: 30 + '%',
+            margin: 1.0 + 'rem' } },
         React.createElement(
           'div',
           null,
+          React.createElement('img', { className: 'card-img-top', src: this.props.imageURL }),
           React.createElement(
-            'h2',
-            null,
-            this.props.name
-          ),
-          React.createElement('img', { width: '400px', src: this.props.imageURL }),
-          React.createElement(
-            'p',
-            null,
-            'Description:',
-            React.createElement('br', null),
-            this.props.description
-          ),
-          React.createElement(
-            'p',
-            null,
-            'Number of servings: ',
-            this.props.numberOfServings
-          ),
-          React.createElement(
-            'p',
-            null,
-            'Time to prepare: ',
-            this.props.totalTime
-          ),
-          React.createElement(
-            'p',
-            null,
-            'Source URL: ',
-            this.props.sourceRecipeURL
-          ),
-          React.createElement(
-            'p',
-            null,
-            'Rating: ',
-            this.props.rating
+            'div',
+            { className: 'card-body' },
+            React.createElement(
+              'h3',
+              { className: 'card-title' },
+              this.props.name
+            ),
+            React.createElement(
+              'p',
+              { className: 'card-text' },
+              React.createElement(
+                'a',
+                { href: this.props.sourceRecipeURL },
+                'Source: ',
+                this.props.source
+              )
+            ),
+            React.createElement(
+              'p',
+              { className: 'card-text' },
+              'Number of servings: ',
+              this.props.numberOfServings
+            ),
+            React.createElement(
+              'p',
+              { className: 'card-text' },
+              'Calories per serving: ',
+              this.props.caloriesPerServing
+            ),
+            React.createElement(
+              'p',
+              { className: 'card-text' },
+              'Time to prepare: ',
+              this.props.totalTime
+            ),
+            React.createElement(
+              'p',
+              { className: 'card-text' },
+              'Ingredients:'
+            ),
+            React.createElement(
+              'ul',
+              { className: 'card-text' },
+              this.props.ingredients.map(function (recipe, i) {
+                return React.createElement(
+                  'li',
+                  { key: i + _this2.props },
+                  recipe
+                );
+              })
+            )
           )
         )
       );
@@ -77,18 +97,60 @@ var Recipe = function (_React$Component) {
   return Recipe;
 }(React.Component);
 
+var CardList = function CardList(_ref) {
+  var recipes = _ref.recipes;
+
+  var cardsArray = recipes.map(function (recipe) {
+    return React.createElement(Recipe, { key: recipe.id,
+      id: recipe.id,
+      name: recipe.name,
+      source: recipe.source,
+      imageURL: recipe.imageURL,
+      numberOfServings: recipe.numberOfServings,
+      sourceRecipeURL: recipe.sourceRecipeURL,
+      totalTime: recipe.totalTime,
+      caloriesPerServing: recipe.caloriesPerServing,
+      ingredients: recipe.ingredients });
+  });
+
+  return React.createElement(
+    'div',
+    { className: 'bricklayer' },
+    cardsArray
+  );
+};
+
+CardList.propTypes = {
+  recipes: React.PropTypes.array.isRequired
+};
+
+Recipe.propTypes = {
+  id: React.PropTypes.number.isRequired,
+  name: React.PropTypes.string.isRequired,
+  imageURL: React.PropTypes.string.isRequired,
+  source: React.PropTypes.string.isRequired,
+  numberOfServings: React.PropTypes.number.isRequired,
+  sourceRecipeURL: React.PropTypes.string.isRequired,
+  totalTime: React.PropTypes.number.isRequired,
+  caloriesPerServing: React.PropTypes.number.isRequired,
+  ingredients: React.PropTypes.arrayOf(React.PropTypes.string).isRequired
+};
+
 var App = function (_React$Component2) {
   _inherits(App, _React$Component2);
 
   function App() {
     _classCallCheck(this, App);
 
-    var _this2 = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this));
+    var _this3 = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this));
 
-    _this2.state = { value: '' };
-    _this2.handleChange = _this2.handleChange.bind(_this2);
-    _this2.handleSubmit = _this2.handleSubmit.bind(_this2);
-    return _this2;
+    _this3.state = {
+      value: '',
+      searchResult: []
+    };
+    _this3.handleChange = _this3.handleChange.bind(_this3);
+    _this3.handleSubmit = _this3.handleSubmit.bind(_this3);
+    return _this3;
   }
 
   _createClass(App, [{
@@ -97,21 +159,37 @@ var App = function (_React$Component2) {
       this.setState({ value: event.target.value });
     }
   }, {
+    key: 'createRecipe',
+    value: function createRecipe(newRecipe) {
+      var newRecipes = this.state.searchResult.slice();
+      newRecipe.id = this.state.searchResult.length + 1;
+      newRecipes.push(newRecipe);
+      this.setState({ searchResult: newRecipes });
+    }
+  }, {
     key: 'handleSubmit',
     value: function handleSubmit(event) {
+      var _this4 = this;
+
+      this.setState({ searchResult: [] });
       event.preventDefault();
       var query = encodeURI(this.state.value);
-      fetch('https://api.edamam.com/search?q=' + query + '&app_id=2e98039e&app_key=68a92e2d6de1a6d18e6fc3499f1aa18d').then(function (response) {
-        //console.log(response);
-        if (response.status !== 200) {
-          console.log('Looks like there was a problem. Status Code: ' + response.status);
-          return false;
+      fetch('https://api.edamam.com/search?q=' + query + '&app_id=2e98039e&app_key=68a92e2d6de1a6d18e6fc3499f1aa18d').then(function (resp) {
+        return resp.json();
+      }).then(function (resp) {
+        if (resp.count) {
+          resp.hits.forEach(function (hit) {
+            _this4.createRecipe({
+              name: hit.recipe.label,
+              source: hit.recipe.source,
+              numberOfServings: hit.recipe.yield,
+              imageURL: hit.recipe.image,
+              sourceRecipeURL: hit.recipe.url,
+              totalTime: hit.recipe.totalTime,
+              caloriesPerServing: hit.recipe.calories,
+              ingredients: hit.recipe.ingredientLines });
+          });
         }
-
-        // Examine the text in the response
-        response.json().then(function (data) {
-          console.log(data);
-        });
       }).catch(function (err) {
         console.log('Fetch Error :-S', err);
       });
@@ -120,30 +198,43 @@ var App = function (_React$Component2) {
     key: 'render',
     value: function render() {
       return React.createElement(
-        'form',
-        { onSubmit: this.handleSubmit },
+        'div',
+        { className: 'container' },
         React.createElement(
           'div',
-          { className: 'form-group' },
+          { className: 'row' },
           React.createElement(
-            'div',
-            { className: 'row' },
-            React.createElement(
-              'label',
-              { htmlFor: 'search-bar' },
-              'Input Ingredients:'
-            ),
-            React.createElement('input', { id: 'search-bar', type: 'text', className: 'form-control', value: this.state.value, onChange: this.handleChange, placeholder: 'Enter Ingredients' }),
+            'form',
+            { onSubmit: this.handleSubmit },
             React.createElement(
               'div',
-              { className: 'row' },
+              { className: 'form-group' },
               React.createElement(
-                'button',
-                { type: 'submit', className: 'btn btn-primary' },
-                'Submit'
+                'div',
+                { className: 'row' },
+                React.createElement(
+                  'label',
+                  { htmlFor: 'search-bar' },
+                  'Input Ingredients:'
+                ),
+                React.createElement('input', { id: 'search-bar', type: 'text', className: 'form-control', value: this.state.value, onChange: this.handleChange, placeholder: 'Enter Ingredients' })
+              ),
+              React.createElement(
+                'div',
+                { className: 'row' },
+                React.createElement(
+                  'button',
+                  { type: 'submit', className: 'btn btn-primary' },
+                  'Submit'
+                )
               )
             )
           )
+        ),
+        React.createElement(
+          'div',
+          { className: 'row' },
+          React.createElement(CardList, { recipes: this.state.searchResult })
         )
       );
     }
