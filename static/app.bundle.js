@@ -1,6 +1,133 @@
 webpackJsonp([0],{
 
-/***/ 150:
+/***/ 100:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(6);
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _extends2 = _interopRequireDefault(__webpack_require__(8));
+
+var _objectWithoutPropertiesLoose2 = _interopRequireDefault(__webpack_require__(13));
+
+var _classnames = _interopRequireDefault(__webpack_require__(1));
+
+var _react = _interopRequireDefault(__webpack_require__(0));
+
+var _propTypes = _interopRequireDefault(__webpack_require__(10));
+
+var propTypes = {
+  /**
+   * Specify whether the feedback is for valid or invalid fields
+   *
+   * @type {('valid'|'invalid')}
+   */
+  type: _propTypes.default.string.isRequired,
+  as: _propTypes.default.elementType
+};
+var defaultProps = {
+  type: 'valid',
+  as: 'div'
+};
+
+var Feedback = _react.default.forwardRef(function (_ref, ref) {
+  var Component = _ref.as,
+      className = _ref.className,
+      type = _ref.type,
+      props = (0, _objectWithoutPropertiesLoose2.default)(_ref, ["as", "className", "type"]);
+  return _react.default.createElement(Component, (0, _extends2.default)({}, props, {
+    ref: ref,
+    className: (0, _classnames.default)(className, type && type + "-feedback")
+  }));
+});
+
+Feedback.displayName = 'Feedback';
+Feedback.propTypes = propTypes;
+Feedback.defaultProps = defaultProps;
+var _default = Feedback;
+exports.default = _default;
+module.exports = exports["default"];
+
+/***/ }),
+
+/***/ 101:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(6);
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _extends2 = _interopRequireDefault(__webpack_require__(8));
+
+var _objectWithoutPropertiesLoose2 = _interopRequireDefault(__webpack_require__(13));
+
+var _classnames = _interopRequireDefault(__webpack_require__(1));
+
+var _react = _interopRequireDefault(__webpack_require__(0));
+
+var _ThemeProvider = __webpack_require__(15);
+
+var DEVICE_SIZES = ['xl', 'lg', 'md', 'sm', 'xs'];
+var defaultProps = {
+  as: 'div'
+};
+
+var Col = _react.default.forwardRef(function (_ref, ref) {
+  var bsPrefix = _ref.bsPrefix,
+      className = _ref.className,
+      Component = _ref.as,
+      props = (0, _objectWithoutPropertiesLoose2.default)(_ref, ["bsPrefix", "className", "as"]);
+  var prefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'col');
+  var spans = [];
+  var classes = [];
+  DEVICE_SIZES.forEach(function (brkPoint) {
+    var propValue = props[brkPoint];
+    delete props[brkPoint];
+    var span, offset, order;
+
+    if (propValue != null && typeof propValue === 'object') {
+      var _propValue$span = propValue.span;
+      span = _propValue$span === void 0 ? true : _propValue$span;
+      offset = propValue.offset;
+      order = propValue.order;
+    } else {
+      span = propValue;
+    }
+
+    var infix = brkPoint !== 'xs' ? "-" + brkPoint : '';
+    if (span != null) spans.push(span === true ? "" + prefix + infix : "" + prefix + infix + "-" + span);
+    if (order != null) classes.push("order" + infix + "-" + order);
+    if (offset != null) classes.push("offset" + infix + "-" + offset);
+  });
+
+  if (!spans.length) {
+    spans.push(prefix); // plain 'col'
+  }
+
+  return _react.default.createElement(Component, (0, _extends2.default)({}, props, {
+    ref: ref,
+    className: _classnames.default.apply(void 0, [className].concat(spans, classes))
+  }));
+});
+
+Col.displayName = 'Col';
+Col.defaultProps = defaultProps;
+var _default = Col;
+exports.default = _default;
+module.exports = exports["default"];
+
+/***/ }),
+
+/***/ 146:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10,13 +137,13 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(12);
+var _reactDom = __webpack_require__(14);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _reactRouter = __webpack_require__(85);
+var _reactRouter = __webpack_require__(86);
 
-var _Search = __webpack_require__(192);
+var _Search = __webpack_require__(188);
 
 var _Search2 = _interopRequireDefault(_Search);
 
@@ -60,7 +187,100 @@ _reactDom2.default.render(_react2.default.createElement(_Search2.default, null),
 
 /***/ }),
 
-/***/ 192:
+/***/ 15:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireWildcard = __webpack_require__(20);
+
+var _interopRequireDefault = __webpack_require__(6);
+
+exports.__esModule = true;
+exports.useBootstrapPrefix = useBootstrapPrefix;
+exports.createBootstrapComponent = createBootstrapComponent;
+exports.default = exports.ThemeConsumer = void 0;
+
+var _extends2 = _interopRequireDefault(__webpack_require__(8));
+
+var _inheritsLoose2 = _interopRequireDefault(__webpack_require__(32));
+
+var _forwardRef = _interopRequireDefault(__webpack_require__(60));
+
+var _react = _interopRequireWildcard(__webpack_require__(0));
+
+var ThemeContext = _react.default.createContext(new Map());
+
+var Consumer = ThemeContext.Consumer,
+    Provider = ThemeContext.Provider;
+exports.ThemeConsumer = Consumer;
+
+var ThemeProvider =
+/*#__PURE__*/
+function (_React$Component) {
+  (0, _inheritsLoose2.default)(ThemeProvider, _React$Component);
+
+  function ThemeProvider() {
+    var _this;
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = _React$Component.call.apply(_React$Component, [this].concat(args)) || this;
+    _this.prefixes = new Map();
+    Object.keys(_this.props.prefixes).forEach(function (key) {
+      _this.prefixes.set(key, _this.props.prefixes[key]);
+    });
+    return _this;
+  }
+
+  var _proto = ThemeProvider.prototype;
+
+  _proto.render = function render() {
+    return _react.default.createElement(Provider, {
+      value: this.prefixes
+    }, this.props.children);
+  };
+
+  return ThemeProvider;
+}(_react.default.Component);
+
+function useBootstrapPrefix(prefix, defaultPrefix) {
+  var prefixes = (0, _react.useContext)(ThemeContext);
+  return prefix || prefixes.get(defaultPrefix) || defaultPrefix;
+}
+
+function createBootstrapComponent(Component, opts) {
+  if (typeof opts === 'string') opts = {
+    prefix: opts
+  };
+  var isClassy = Component.prototype && Component.prototype.isReactComponent; // If it's a functional component make sure we don't break it with a ref
+
+  var _opts = opts,
+      prefix = _opts.prefix,
+      _opts$forwardRefAs = _opts.forwardRefAs,
+      forwardRefAs = _opts$forwardRefAs === void 0 ? isClassy ? 'ref' : 'innerRef' : _opts$forwardRefAs;
+  return (0, _forwardRef.default)(function (_ref, ref) {
+    var props = (0, _extends2.default)({}, _ref);
+    props[forwardRefAs] = ref;
+    var prefixes = (0, _react.useContext)(ThemeContext);
+    return _react.default.createElement(Component, (0, _extends2.default)({}, props, {
+      // eslint-disable-next-line react/prop-types
+      bsPrefix: props.bsPrefix || prefixes.get(prefix) || prefix
+    }));
+  }, {
+    displayName: "Bootstrap(" + (Component.displayName || Component.name) + ")"
+  });
+}
+
+var _default = ThemeProvider;
+exports.default = _default;
+
+/***/ }),
+
+/***/ 188:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -76,31 +296,39 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-__webpack_require__(98);
-
-var _Card = __webpack_require__(194);
-
-var _Card2 = _interopRequireDefault(_Card);
-
-var _CardColumns = __webpack_require__(304);
-
-var _CardColumns2 = _interopRequireDefault(_CardColumns);
+__webpack_require__(99);
 
 var _propTypes = __webpack_require__(10);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _Button = __webpack_require__(306);
+var _Card = __webpack_require__(190);
+
+var _Card2 = _interopRequireDefault(_Card);
+
+var _CardColumns = __webpack_require__(194);
+
+var _CardColumns2 = _interopRequireDefault(_CardColumns);
+
+var _Button = __webpack_require__(199);
 
 var _Button2 = _interopRequireDefault(_Button);
 
-var _Form = __webpack_require__(311);
+var _Form = __webpack_require__(202);
 
 var _Form2 = _interopRequireDefault(_Form);
 
-var _Col = __webpack_require__(318);
+var _Col = __webpack_require__(101);
 
 var _Col2 = _interopRequireDefault(_Col);
+
+var _Row = __webpack_require__(293);
+
+var _Row2 = _interopRequireDefault(_Row);
+
+var _Container = __webpack_require__(294);
+
+var _Container2 = _interopRequireDefault(_Container);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -128,7 +356,7 @@ var Recipe = function (_React$Component) {
 
       return _react2.default.createElement(
         _Card2.default,
-        { style: { width: '25em' } },
+        { bg: 'light', style: { width: '220px' } },
         _react2.default.createElement(_Card2.default.Img, { variant: 'top', src: this.props.imageURL }),
         _react2.default.createElement(
           _Card2.default.Body,
@@ -291,11 +519,11 @@ var Search = function (_React$Component2) {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
-        'div',
-        { className: 'container' },
+        _Container2.default,
+        null,
         _react2.default.createElement(
           _Form2.default,
-          { onSubmit: this.handleSubmit },
+          { onSubmit: this.handleSubmit, style: { marginTop: '2rem' } },
           _react2.default.createElement(
             _Form2.default.Row,
             null,
@@ -320,8 +548,8 @@ var Search = function (_React$Component2) {
           )
         ),
         _react2.default.createElement(
-          'div',
-          { className: 'row' },
+          _Row2.default,
+          { style: { marginTop: '2rem' } },
           _react2.default.createElement(CardList, { recipes: this.state.searchResult })
         )
       );
@@ -335,36 +563,36 @@ exports.default = Search;
 
 /***/ }),
 
-/***/ 194:
+/***/ 190:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _interopRequireWildcard = __webpack_require__(99);
+var _interopRequireWildcard = __webpack_require__(20);
 
-var _interopRequireDefault = __webpack_require__(7);
+var _interopRequireDefault = __webpack_require__(6);
 
 exports.__esModule = true;
 exports.default = void 0;
 
-var _extends2 = _interopRequireDefault(__webpack_require__(18));
+var _extends2 = _interopRequireDefault(__webpack_require__(8));
 
-var _objectWithoutPropertiesLoose2 = _interopRequireDefault(__webpack_require__(38));
+var _objectWithoutPropertiesLoose2 = _interopRequireDefault(__webpack_require__(13));
 
-var _classnames = _interopRequireDefault(__webpack_require__(4));
+var _classnames = _interopRequireDefault(__webpack_require__(1));
 
 var _react = _interopRequireWildcard(__webpack_require__(0));
 
-var _ThemeProvider = __webpack_require__(57);
+var _ThemeProvider = __webpack_require__(15);
 
-var _createWithBsPrefix = _interopRequireDefault(__webpack_require__(195));
+var _createWithBsPrefix = _interopRequireDefault(__webpack_require__(61));
 
-var _divWithClassName = _interopRequireDefault(__webpack_require__(196));
+var _divWithClassName = _interopRequireDefault(__webpack_require__(191));
 
-var _CardContext = _interopRequireDefault(__webpack_require__(197));
+var _CardContext = _interopRequireDefault(__webpack_require__(192));
 
-var _CardImg = _interopRequireDefault(__webpack_require__(198));
+var _CardImg = _interopRequireDefault(__webpack_require__(193));
 
 var DivStyledAsH5 = (0, _divWithClassName.default)('h5');
 var DivStyledAsH6 = (0, _divWithClassName.default)('h6');
@@ -424,80 +652,22 @@ module.exports = exports["default"];
 
 /***/ }),
 
-/***/ 195:
+/***/ 191:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _interopRequireDefault = __webpack_require__(7);
-
-exports.__esModule = true;
-exports.default = createWithBsPrefix;
-
-var _extends2 = _interopRequireDefault(__webpack_require__(18));
-
-var _objectWithoutPropertiesLoose2 = _interopRequireDefault(__webpack_require__(38));
-
-var _classnames = _interopRequireDefault(__webpack_require__(4));
-
-var _react = _interopRequireDefault(__webpack_require__(0));
-
-var _camelize = _interopRequireDefault(__webpack_require__(59));
-
-var _ThemeProvider = __webpack_require__(57);
-
-var pascalCase = function pascalCase(str) {
-  return str[0].toUpperCase() + (0, _camelize.default)(str).slice(1);
-};
-
-function createWithBsPrefix(prefix, _temp) {
-  var _ref = _temp === void 0 ? {} : _temp,
-      _ref$displayName = _ref.displayName,
-      displayName = _ref$displayName === void 0 ? pascalCase(prefix) : _ref$displayName,
-      _ref$Component = _ref.Component,
-      Component = _ref$Component === void 0 ? 'div' : _ref$Component,
-      defaultProps = _ref.defaultProps;
-
-  var BsComponent = _react.default.forwardRef( // eslint-disable-next-line react/prop-types
-  function (_ref2, ref) {
-    var className = _ref2.className,
-        bsPrefix = _ref2.bsPrefix,
-        _ref2$as = _ref2.as,
-        Tag = _ref2$as === void 0 ? Component : _ref2$as,
-        props = (0, _objectWithoutPropertiesLoose2.default)(_ref2, ["className", "bsPrefix", "as"]);
-    var resolvedPrefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, prefix);
-    return _react.default.createElement(Tag, (0, _extends2.default)({
-      ref: ref,
-      className: (0, _classnames.default)(className, resolvedPrefix)
-    }, props));
-  });
-
-  BsComponent.defaultProps = defaultProps;
-  BsComponent.displayName = displayName;
-  return BsComponent;
-}
-
-module.exports = exports["default"];
-
-/***/ }),
-
-/***/ 196:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(7);
+var _interopRequireDefault = __webpack_require__(6);
 
 exports.__esModule = true;
 exports.default = void 0;
 
-var _extends2 = _interopRequireDefault(__webpack_require__(18));
+var _extends2 = _interopRequireDefault(__webpack_require__(8));
 
 var _react = _interopRequireDefault(__webpack_require__(0));
 
-var _classnames = _interopRequireDefault(__webpack_require__(4));
+var _classnames = _interopRequireDefault(__webpack_require__(1));
 
 var _default = function _default(className) {
   return _react.default.forwardRef(function (p, ref) {
@@ -513,13 +683,13 @@ module.exports = exports["default"];
 
 /***/ }),
 
-/***/ 197:
+/***/ 192:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _interopRequireDefault = __webpack_require__(7);
+var _interopRequireDefault = __webpack_require__(6);
 
 exports.__esModule = true;
 exports.default = void 0;
@@ -533,26 +703,26 @@ module.exports = exports["default"];
 
 /***/ }),
 
-/***/ 198:
+/***/ 193:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _interopRequireDefault = __webpack_require__(7);
+var _interopRequireDefault = __webpack_require__(6);
 
 exports.__esModule = true;
 exports.default = void 0;
 
-var _extends2 = _interopRequireDefault(__webpack_require__(18));
+var _extends2 = _interopRequireDefault(__webpack_require__(8));
 
-var _objectWithoutPropertiesLoose2 = _interopRequireDefault(__webpack_require__(38));
+var _objectWithoutPropertiesLoose2 = _interopRequireDefault(__webpack_require__(13));
 
-var _classnames = _interopRequireDefault(__webpack_require__(4));
+var _classnames = _interopRequireDefault(__webpack_require__(1));
 
 var _react = _interopRequireDefault(__webpack_require__(0));
 
-var _ThemeProvider = __webpack_require__(57);
+var _ThemeProvider = __webpack_require__(15);
 
 var defaultProps = {
   as: 'img',
@@ -580,18 +750,18 @@ module.exports = exports["default"];
 
 /***/ }),
 
-/***/ 304:
+/***/ 194:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _interopRequireDefault = __webpack_require__(7);
+var _interopRequireDefault = __webpack_require__(6);
 
 exports.__esModule = true;
 exports.default = void 0;
 
-var _createWithBsPrefix = _interopRequireDefault(__webpack_require__(195));
+var _createWithBsPrefix = _interopRequireDefault(__webpack_require__(61));
 
 var _default = (0, _createWithBsPrefix.default)('card-columns');
 
@@ -600,28 +770,28 @@ module.exports = exports["default"];
 
 /***/ }),
 
-/***/ 306:
+/***/ 199:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _interopRequireDefault = __webpack_require__(7);
+var _interopRequireDefault = __webpack_require__(6);
 
 exports.__esModule = true;
 exports.default = void 0;
 
-var _extends2 = _interopRequireDefault(__webpack_require__(18));
+var _extends2 = _interopRequireDefault(__webpack_require__(8));
 
-var _objectWithoutPropertiesLoose2 = _interopRequireDefault(__webpack_require__(38));
+var _objectWithoutPropertiesLoose2 = _interopRequireDefault(__webpack_require__(13));
 
-var _classnames = _interopRequireDefault(__webpack_require__(4));
+var _classnames = _interopRequireDefault(__webpack_require__(1));
 
 var _react = _interopRequireDefault(__webpack_require__(0));
 
-var _ThemeProvider = __webpack_require__(57);
+var _ThemeProvider = __webpack_require__(15);
 
-var _SafeAnchor = _interopRequireDefault(__webpack_require__(307));
+var _SafeAnchor = _interopRequireDefault(__webpack_require__(200));
 
 var defaultProps = {
   variant: 'primary',
@@ -667,28 +837,60 @@ module.exports = exports["default"];
 
 /***/ }),
 
-/***/ 307:
+/***/ 20:
+/***/ (function(module, exports) {
+
+function _interopRequireWildcard(obj) {
+  if (obj && obj.__esModule) {
+    return obj;
+  } else {
+    var newObj = {};
+
+    if (obj != null) {
+      for (var key in obj) {
+        if (Object.prototype.hasOwnProperty.call(obj, key)) {
+          var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {};
+
+          if (desc.get || desc.set) {
+            Object.defineProperty(newObj, key, desc);
+          } else {
+            newObj[key] = obj[key];
+          }
+        }
+      }
+    }
+
+    newObj["default"] = obj;
+    return newObj;
+  }
+}
+
+module.exports = _interopRequireWildcard;
+
+/***/ }),
+
+/***/ 200:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _interopRequireDefault = __webpack_require__(7);
+var _interopRequireDefault = __webpack_require__(6);
 
 exports.__esModule = true;
 exports.default = void 0;
 
-var _extends2 = _interopRequireDefault(__webpack_require__(18));
+var _extends2 = _interopRequireDefault(__webpack_require__(8));
 
-var _objectWithoutPropertiesLoose2 = _interopRequireDefault(__webpack_require__(38));
+var _objectWithoutPropertiesLoose2 = _interopRequireDefault(__webpack_require__(13));
 
-var _assertThisInitialized2 = _interopRequireDefault(__webpack_require__(71));
+var _assertThisInitialized2 = _interopRequireDefault(__webpack_require__(43));
 
-var _inheritsLoose2 = _interopRequireDefault(__webpack_require__(39));
+var _inheritsLoose2 = _interopRequireDefault(__webpack_require__(32));
 
 var _react = _interopRequireDefault(__webpack_require__(0));
 
-var _createChainedFunction = _interopRequireDefault(__webpack_require__(308));
+var _createChainedFunction = _interopRequireDefault(__webpack_require__(201));
 
 var defaultProps = {
   as: 'a'
@@ -786,7 +988,7 @@ module.exports = exports["default"];
 
 /***/ }),
 
-/***/ 308:
+/***/ 201:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -834,116 +1036,38 @@ module.exports = exports["default"];
 
 /***/ }),
 
-/***/ 309:
+/***/ 202:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _interopRequireDefault = __webpack_require__(7);
+var _interopRequireDefault = __webpack_require__(6);
 
 exports.__esModule = true;
 exports.default = void 0;
 
-var _react = _interopRequireDefault(__webpack_require__(0));
+var _extends2 = _interopRequireDefault(__webpack_require__(8));
 
-var FormContext = _react.default.createContext({
-  controlId: undefined
-});
+var _objectWithoutPropertiesLoose2 = _interopRequireDefault(__webpack_require__(13));
 
-var _default = FormContext;
-exports.default = _default;
-module.exports = exports["default"];
-
-/***/ }),
-
-/***/ 310:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(7);
-
-exports.__esModule = true;
-exports.default = void 0;
-
-var _extends2 = _interopRequireDefault(__webpack_require__(18));
-
-var _objectWithoutPropertiesLoose2 = _interopRequireDefault(__webpack_require__(38));
-
-var _classnames = _interopRequireDefault(__webpack_require__(4));
+var _classnames = _interopRequireDefault(__webpack_require__(1));
 
 var _react = _interopRequireDefault(__webpack_require__(0));
 
-var _propTypes = _interopRequireDefault(__webpack_require__(10));
+var _createWithBsPrefix = _interopRequireDefault(__webpack_require__(61));
 
-var propTypes = {
-  /**
-   * Specify whether the feedback is for valid or invalid fields
-   *
-   * @type {('valid'|'invalid')}
-   */
-  type: _propTypes.default.string.isRequired,
-  as: _propTypes.default.elementType
-};
-var defaultProps = {
-  type: 'valid',
-  as: 'div'
-};
+var _ThemeProvider = __webpack_require__(15);
 
-var Feedback = _react.default.forwardRef(function (_ref, ref) {
-  var Component = _ref.as,
-      className = _ref.className,
-      type = _ref.type,
-      props = (0, _objectWithoutPropertiesLoose2.default)(_ref, ["as", "className", "type"]);
-  return _react.default.createElement(Component, (0, _extends2.default)({}, props, {
-    ref: ref,
-    className: (0, _classnames.default)(className, type && type + "-feedback")
-  }));
-});
+var _FormGroup = _interopRequireDefault(__webpack_require__(203));
 
-Feedback.displayName = 'Feedback';
-Feedback.propTypes = propTypes;
-Feedback.defaultProps = defaultProps;
-var _default = Feedback;
-exports.default = _default;
-module.exports = exports["default"];
+var _FormControl = _interopRequireDefault(__webpack_require__(204));
 
-/***/ }),
+var _FormCheck = _interopRequireDefault(__webpack_require__(205));
 
-/***/ 311:
-/***/ (function(module, exports, __webpack_require__) {
+var _FormLabel = _interopRequireDefault(__webpack_require__(208));
 
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(7);
-
-exports.__esModule = true;
-exports.default = void 0;
-
-var _extends2 = _interopRequireDefault(__webpack_require__(18));
-
-var _objectWithoutPropertiesLoose2 = _interopRequireDefault(__webpack_require__(38));
-
-var _classnames = _interopRequireDefault(__webpack_require__(4));
-
-var _react = _interopRequireDefault(__webpack_require__(0));
-
-var _createWithBsPrefix = _interopRequireDefault(__webpack_require__(195));
-
-var _ThemeProvider = __webpack_require__(57);
-
-var _FormGroup = _interopRequireDefault(__webpack_require__(312));
-
-var _FormControl = _interopRequireDefault(__webpack_require__(313));
-
-var _FormCheck = _interopRequireDefault(__webpack_require__(314));
-
-var _FormLabel = _interopRequireDefault(__webpack_require__(317));
-
-var _FormText = _interopRequireDefault(__webpack_require__(319));
+var _FormText = _interopRequireDefault(__webpack_require__(209));
 
 var defaultProps = {
   inline: false,
@@ -978,30 +1102,30 @@ module.exports = exports["default"];
 
 /***/ }),
 
-/***/ 312:
+/***/ 203:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _interopRequireWildcard = __webpack_require__(99);
+var _interopRequireWildcard = __webpack_require__(20);
 
-var _interopRequireDefault = __webpack_require__(7);
+var _interopRequireDefault = __webpack_require__(6);
 
 exports.__esModule = true;
 exports.default = void 0;
 
-var _extends2 = _interopRequireDefault(__webpack_require__(18));
+var _extends2 = _interopRequireDefault(__webpack_require__(8));
 
-var _objectWithoutPropertiesLoose2 = _interopRequireDefault(__webpack_require__(38));
+var _objectWithoutPropertiesLoose2 = _interopRequireDefault(__webpack_require__(13));
 
-var _classnames = _interopRequireDefault(__webpack_require__(4));
+var _classnames = _interopRequireDefault(__webpack_require__(1));
 
 var _react = _interopRequireWildcard(__webpack_require__(0));
 
-var _FormContext = _interopRequireDefault(__webpack_require__(309));
+var _FormContext = _interopRequireDefault(__webpack_require__(27));
 
-var _ThemeProvider = __webpack_require__(57);
+var _ThemeProvider = __webpack_require__(15);
 
 var defaultProps = {
   as: 'div'
@@ -1036,34 +1160,34 @@ module.exports = exports["default"];
 
 /***/ }),
 
-/***/ 313:
+/***/ 204:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {
 
-var _interopRequireWildcard = __webpack_require__(99);
+var _interopRequireWildcard = __webpack_require__(20);
 
-var _interopRequireDefault = __webpack_require__(7);
+var _interopRequireDefault = __webpack_require__(6);
 
 exports.__esModule = true;
 exports.default = void 0;
 
-var _extends2 = _interopRequireDefault(__webpack_require__(18));
+var _extends2 = _interopRequireDefault(__webpack_require__(8));
 
-var _objectWithoutPropertiesLoose2 = _interopRequireDefault(__webpack_require__(38));
+var _objectWithoutPropertiesLoose2 = _interopRequireDefault(__webpack_require__(13));
 
-var _classnames = _interopRequireDefault(__webpack_require__(4));
+var _classnames = _interopRequireDefault(__webpack_require__(1));
 
 var _react = _interopRequireWildcard(__webpack_require__(0));
 
-var _warning = _interopRequireDefault(__webpack_require__(44));
+var _warning = _interopRequireDefault(__webpack_require__(28));
 
-var _Feedback = _interopRequireDefault(__webpack_require__(310));
+var _Feedback = _interopRequireDefault(__webpack_require__(100));
 
-var _FormContext = _interopRequireDefault(__webpack_require__(309));
+var _FormContext = _interopRequireDefault(__webpack_require__(27));
 
-var _ThemeProvider = __webpack_require__(57);
+var _ThemeProvider = __webpack_require__(15);
 
 var defaultProps = {
   as: 'input'
@@ -1118,40 +1242,40 @@ FormControl.Feedback = _Feedback.default;
 var _default = FormControl;
 exports.default = _default;
 module.exports = exports["default"];
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
 
-/***/ 314:
+/***/ 205:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _interopRequireWildcard = __webpack_require__(99);
+var _interopRequireWildcard = __webpack_require__(20);
 
-var _interopRequireDefault = __webpack_require__(7);
+var _interopRequireDefault = __webpack_require__(6);
 
 exports.__esModule = true;
 exports.default = void 0;
 
-var _extends2 = _interopRequireDefault(__webpack_require__(18));
+var _extends2 = _interopRequireDefault(__webpack_require__(8));
 
-var _objectWithoutPropertiesLoose2 = _interopRequireDefault(__webpack_require__(38));
+var _objectWithoutPropertiesLoose2 = _interopRequireDefault(__webpack_require__(13));
 
-var _classnames = _interopRequireDefault(__webpack_require__(4));
+var _classnames = _interopRequireDefault(__webpack_require__(1));
 
 var _react = _interopRequireWildcard(__webpack_require__(0));
 
-var _ThemeProvider = __webpack_require__(57);
+var _ThemeProvider = __webpack_require__(15);
 
-var _FormContext = _interopRequireDefault(__webpack_require__(309));
+var _FormContext = _interopRequireDefault(__webpack_require__(27));
 
-var _Feedback = _interopRequireDefault(__webpack_require__(310));
+var _Feedback = _interopRequireDefault(__webpack_require__(100));
 
-var _FormCheckInput = _interopRequireDefault(__webpack_require__(315));
+var _FormCheckInput = _interopRequireDefault(__webpack_require__(206));
 
-var _FormCheckLabel = _interopRequireDefault(__webpack_require__(316));
+var _FormCheckLabel = _interopRequireDefault(__webpack_require__(207));
 
 var defaultProps = {
   type: 'checkbox',
@@ -1222,30 +1346,30 @@ module.exports = exports["default"];
 
 /***/ }),
 
-/***/ 315:
+/***/ 206:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _interopRequireWildcard = __webpack_require__(99);
+var _interopRequireWildcard = __webpack_require__(20);
 
-var _interopRequireDefault = __webpack_require__(7);
+var _interopRequireDefault = __webpack_require__(6);
 
 exports.__esModule = true;
 exports.default = void 0;
 
-var _extends2 = _interopRequireDefault(__webpack_require__(18));
+var _extends2 = _interopRequireDefault(__webpack_require__(8));
 
-var _objectWithoutPropertiesLoose2 = _interopRequireDefault(__webpack_require__(38));
+var _objectWithoutPropertiesLoose2 = _interopRequireDefault(__webpack_require__(13));
 
-var _classnames = _interopRequireDefault(__webpack_require__(4));
+var _classnames = _interopRequireDefault(__webpack_require__(1));
 
 var _react = _interopRequireWildcard(__webpack_require__(0));
 
-var _ThemeProvider = __webpack_require__(57);
+var _ThemeProvider = __webpack_require__(15);
 
-var _FormContext = _interopRequireDefault(__webpack_require__(309));
+var _FormContext = _interopRequireDefault(__webpack_require__(27));
 
 var defaultProps = {
   type: 'checkbox'
@@ -1280,30 +1404,30 @@ module.exports = exports["default"];
 
 /***/ }),
 
-/***/ 316:
+/***/ 207:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _interopRequireWildcard = __webpack_require__(99);
+var _interopRequireWildcard = __webpack_require__(20);
 
-var _interopRequireDefault = __webpack_require__(7);
+var _interopRequireDefault = __webpack_require__(6);
 
 exports.__esModule = true;
 exports.default = void 0;
 
-var _extends2 = _interopRequireDefault(__webpack_require__(18));
+var _extends2 = _interopRequireDefault(__webpack_require__(8));
 
-var _objectWithoutPropertiesLoose2 = _interopRequireDefault(__webpack_require__(38));
+var _objectWithoutPropertiesLoose2 = _interopRequireDefault(__webpack_require__(13));
 
-var _classnames = _interopRequireDefault(__webpack_require__(4));
+var _classnames = _interopRequireDefault(__webpack_require__(1));
 
 var _react = _interopRequireWildcard(__webpack_require__(0));
 
-var _ThemeProvider = __webpack_require__(57);
+var _ThemeProvider = __webpack_require__(15);
 
-var _FormContext = _interopRequireDefault(__webpack_require__(309));
+var _FormContext = _interopRequireDefault(__webpack_require__(27));
 
 var defaultProps = {
   type: 'checkbox'
@@ -1335,34 +1459,34 @@ module.exports = exports["default"];
 
 /***/ }),
 
-/***/ 317:
+/***/ 208:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {
 
-var _interopRequireWildcard = __webpack_require__(99);
+var _interopRequireWildcard = __webpack_require__(20);
 
-var _interopRequireDefault = __webpack_require__(7);
+var _interopRequireDefault = __webpack_require__(6);
 
 exports.__esModule = true;
 exports.default = void 0;
 
-var _extends2 = _interopRequireDefault(__webpack_require__(18));
+var _extends2 = _interopRequireDefault(__webpack_require__(8));
 
-var _objectWithoutPropertiesLoose2 = _interopRequireDefault(__webpack_require__(38));
+var _objectWithoutPropertiesLoose2 = _interopRequireDefault(__webpack_require__(13));
 
-var _classnames = _interopRequireDefault(__webpack_require__(4));
+var _classnames = _interopRequireDefault(__webpack_require__(1));
 
 var _react = _interopRequireWildcard(__webpack_require__(0));
 
-var _warning = _interopRequireDefault(__webpack_require__(44));
+var _warning = _interopRequireDefault(__webpack_require__(28));
 
-var _Col = _interopRequireDefault(__webpack_require__(318));
+var _Col = _interopRequireDefault(__webpack_require__(101));
 
-var _FormContext = _interopRequireDefault(__webpack_require__(309));
+var _FormContext = _interopRequireDefault(__webpack_require__(27));
 
-var _ThemeProvider = __webpack_require__(57);
+var _ThemeProvider = __webpack_require__(15);
 
 var defaultProps = {
   column: false,
@@ -1401,102 +1525,30 @@ FormLabel.defaultProps = defaultProps;
 var _default = FormLabel;
 exports.default = _default;
 module.exports = exports["default"];
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
 
-/***/ 318:
+/***/ 209:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _interopRequireDefault = __webpack_require__(7);
+var _interopRequireDefault = __webpack_require__(6);
 
 exports.__esModule = true;
 exports.default = void 0;
 
-var _extends2 = _interopRequireDefault(__webpack_require__(18));
+var _extends2 = _interopRequireDefault(__webpack_require__(8));
 
-var _objectWithoutPropertiesLoose2 = _interopRequireDefault(__webpack_require__(38));
+var _objectWithoutPropertiesLoose2 = _interopRequireDefault(__webpack_require__(13));
 
-var _classnames = _interopRequireDefault(__webpack_require__(4));
-
-var _react = _interopRequireDefault(__webpack_require__(0));
-
-var _ThemeProvider = __webpack_require__(57);
-
-var DEVICE_SIZES = ['xl', 'lg', 'md', 'sm', 'xs'];
-var defaultProps = {
-  as: 'div'
-};
-
-var Col = _react.default.forwardRef(function (_ref, ref) {
-  var bsPrefix = _ref.bsPrefix,
-      className = _ref.className,
-      Component = _ref.as,
-      props = (0, _objectWithoutPropertiesLoose2.default)(_ref, ["bsPrefix", "className", "as"]);
-  var prefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'col');
-  var spans = [];
-  var classes = [];
-  DEVICE_SIZES.forEach(function (brkPoint) {
-    var propValue = props[brkPoint];
-    delete props[brkPoint];
-    var span, offset, order;
-
-    if (propValue != null && typeof propValue === 'object') {
-      var _propValue$span = propValue.span;
-      span = _propValue$span === void 0 ? true : _propValue$span;
-      offset = propValue.offset;
-      order = propValue.order;
-    } else {
-      span = propValue;
-    }
-
-    var infix = brkPoint !== 'xs' ? "-" + brkPoint : '';
-    if (span != null) spans.push(span === true ? "" + prefix + infix : "" + prefix + infix + "-" + span);
-    if (order != null) classes.push("order" + infix + "-" + order);
-    if (offset != null) classes.push("offset" + infix + "-" + offset);
-  });
-
-  if (!spans.length) {
-    spans.push(prefix); // plain 'col'
-  }
-
-  return _react.default.createElement(Component, (0, _extends2.default)({}, props, {
-    ref: ref,
-    className: _classnames.default.apply(void 0, [className].concat(spans, classes))
-  }));
-});
-
-Col.displayName = 'Col';
-Col.defaultProps = defaultProps;
-var _default = Col;
-exports.default = _default;
-module.exports = exports["default"];
-
-/***/ }),
-
-/***/ 319:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(7);
-
-exports.__esModule = true;
-exports.default = void 0;
-
-var _extends2 = _interopRequireDefault(__webpack_require__(18));
-
-var _objectWithoutPropertiesLoose2 = _interopRequireDefault(__webpack_require__(38));
-
-var _classnames = _interopRequireDefault(__webpack_require__(4));
+var _classnames = _interopRequireDefault(__webpack_require__(1));
 
 var _react = _interopRequireDefault(__webpack_require__(0));
 
-var _ThemeProvider = __webpack_require__(57);
+var _ThemeProvider = __webpack_require__(15);
 
 var defaultProps = {
   as: 'small'
@@ -1522,129 +1574,194 @@ module.exports = exports["default"];
 
 /***/ }),
 
-/***/ 57:
+/***/ 27:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _interopRequireWildcard = __webpack_require__(99);
-
-var _interopRequireDefault = __webpack_require__(7);
+var _interopRequireDefault = __webpack_require__(6);
 
 exports.__esModule = true;
-exports.useBootstrapPrefix = useBootstrapPrefix;
-exports.createBootstrapComponent = createBootstrapComponent;
-exports.default = exports.ThemeConsumer = void 0;
+exports.default = void 0;
 
-var _extends2 = _interopRequireDefault(__webpack_require__(18));
+var _react = _interopRequireDefault(__webpack_require__(0));
 
-var _inheritsLoose2 = _interopRequireDefault(__webpack_require__(39));
+var FormContext = _react.default.createContext({
+  controlId: undefined
+});
 
-var _forwardRef = _interopRequireDefault(__webpack_require__(58));
-
-var _react = _interopRequireWildcard(__webpack_require__(0));
-
-var ThemeContext = _react.default.createContext(new Map());
-
-var Consumer = ThemeContext.Consumer,
-    Provider = ThemeContext.Provider;
-exports.ThemeConsumer = Consumer;
-
-var ThemeProvider =
-/*#__PURE__*/
-function (_React$Component) {
-  (0, _inheritsLoose2.default)(ThemeProvider, _React$Component);
-
-  function ThemeProvider() {
-    var _this;
-
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    _this = _React$Component.call.apply(_React$Component, [this].concat(args)) || this;
-    _this.prefixes = new Map();
-    Object.keys(_this.props.prefixes).forEach(function (key) {
-      _this.prefixes.set(key, _this.props.prefixes[key]);
-    });
-    return _this;
-  }
-
-  var _proto = ThemeProvider.prototype;
-
-  _proto.render = function render() {
-    return _react.default.createElement(Provider, {
-      value: this.prefixes
-    }, this.props.children);
-  };
-
-  return ThemeProvider;
-}(_react.default.Component);
-
-function useBootstrapPrefix(prefix, defaultPrefix) {
-  var prefixes = (0, _react.useContext)(ThemeContext);
-  return prefix || prefixes.get(defaultPrefix) || defaultPrefix;
-}
-
-function createBootstrapComponent(Component, opts) {
-  if (typeof opts === 'string') opts = {
-    prefix: opts
-  };
-  var isClassy = Component.prototype && Component.prototype.isReactComponent; // If it's a functional component make sure we don't break it with a ref
-
-  var _opts = opts,
-      prefix = _opts.prefix,
-      _opts$forwardRefAs = _opts.forwardRefAs,
-      forwardRefAs = _opts$forwardRefAs === void 0 ? isClassy ? 'ref' : 'innerRef' : _opts$forwardRefAs;
-  return (0, _forwardRef.default)(function (_ref, ref) {
-    var props = (0, _extends2.default)({}, _ref);
-    props[forwardRefAs] = ref;
-    var prefixes = (0, _react.useContext)(ThemeContext);
-    return _react.default.createElement(Component, (0, _extends2.default)({}, props, {
-      // eslint-disable-next-line react/prop-types
-      bsPrefix: props.bsPrefix || prefixes.get(prefix) || prefix
-    }));
-  }, {
-    displayName: "Bootstrap(" + (Component.displayName || Component.name) + ")"
-  });
-}
-
-var _default = ThemeProvider;
+var _default = FormContext;
 exports.default = _default;
+module.exports = exports["default"];
 
 /***/ }),
 
-/***/ 99:
-/***/ (function(module, exports) {
+/***/ 293:
+/***/ (function(module, exports, __webpack_require__) {
 
-function _interopRequireWildcard(obj) {
-  if (obj && obj.__esModule) {
-    return obj;
-  } else {
-    var newObj = {};
+"use strict";
 
-    if (obj != null) {
-      for (var key in obj) {
-        if (Object.prototype.hasOwnProperty.call(obj, key)) {
-          var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {};
 
-          if (desc.get || desc.set) {
-            Object.defineProperty(newObj, key, desc);
-          } else {
-            newObj[key] = obj[key];
-          }
-        }
-      }
-    }
+var _interopRequireDefault = __webpack_require__(6);
 
-    newObj["default"] = obj;
-    return newObj;
+exports.__esModule = true;
+exports.default = void 0;
+
+var _extends2 = _interopRequireDefault(__webpack_require__(8));
+
+var _objectWithoutPropertiesLoose2 = _interopRequireDefault(__webpack_require__(13));
+
+var _inheritsLoose2 = _interopRequireDefault(__webpack_require__(32));
+
+var _classnames = _interopRequireDefault(__webpack_require__(1));
+
+var _react = _interopRequireDefault(__webpack_require__(0));
+
+var _ThemeProvider = __webpack_require__(15);
+
+var Row =
+/*#__PURE__*/
+function (_React$Component) {
+  (0, _inheritsLoose2.default)(Row, _React$Component);
+
+  function Row() {
+    return _React$Component.apply(this, arguments) || this;
   }
+
+  var _proto = Row.prototype;
+
+  _proto.render = function render() {
+    var _this$props = this.props,
+        bsPrefix = _this$props.bsPrefix,
+        noGutters = _this$props.noGutters,
+        Component = _this$props.as,
+        className = _this$props.className,
+        props = (0, _objectWithoutPropertiesLoose2.default)(_this$props, ["bsPrefix", "noGutters", "as", "className"]);
+    return _react.default.createElement(Component, (0, _extends2.default)({}, props, {
+      className: (0, _classnames.default)(className, bsPrefix, noGutters && 'no-gutters')
+    }));
+  };
+
+  return Row;
+}(_react.default.Component);
+
+Row.defaultProps = {
+  as: 'div',
+  noGutters: false
+};
+
+var _default = (0, _ThemeProvider.createBootstrapComponent)(Row, 'row');
+
+exports.default = _default;
+module.exports = exports["default"];
+
+/***/ }),
+
+/***/ 294:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(6);
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _extends2 = _interopRequireDefault(__webpack_require__(8));
+
+var _objectWithoutPropertiesLoose2 = _interopRequireDefault(__webpack_require__(13));
+
+var _classnames = _interopRequireDefault(__webpack_require__(1));
+
+var _react = _interopRequireDefault(__webpack_require__(0));
+
+var _ThemeProvider = __webpack_require__(15);
+
+var defaultProps = {
+  as: 'div',
+  fluid: false
+};
+
+var Container = _react.default.forwardRef(function (_ref, ref) {
+  var bsPrefix = _ref.bsPrefix,
+      fluid = _ref.fluid,
+      Component = _ref.as,
+      className = _ref.className,
+      props = (0, _objectWithoutPropertiesLoose2.default)(_ref, ["bsPrefix", "fluid", "as", "className"]);
+  var prefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'container');
+  return _react.default.createElement(Component, (0, _extends2.default)({
+    ref: ref
+  }, props, {
+    className: (0, _classnames.default)(className, fluid ? prefix + "-fluid" : prefix)
+  }));
+});
+
+Container.displayName = 'Container';
+Container.defaultProps = defaultProps;
+var _default = Container;
+exports.default = _default;
+module.exports = exports["default"];
+
+/***/ }),
+
+/***/ 61:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(6);
+
+exports.__esModule = true;
+exports.default = createWithBsPrefix;
+
+var _extends2 = _interopRequireDefault(__webpack_require__(8));
+
+var _objectWithoutPropertiesLoose2 = _interopRequireDefault(__webpack_require__(13));
+
+var _classnames = _interopRequireDefault(__webpack_require__(1));
+
+var _react = _interopRequireDefault(__webpack_require__(0));
+
+var _camelize = _interopRequireDefault(__webpack_require__(62));
+
+var _ThemeProvider = __webpack_require__(15);
+
+var pascalCase = function pascalCase(str) {
+  return str[0].toUpperCase() + (0, _camelize.default)(str).slice(1);
+};
+
+function createWithBsPrefix(prefix, _temp) {
+  var _ref = _temp === void 0 ? {} : _temp,
+      _ref$displayName = _ref.displayName,
+      displayName = _ref$displayName === void 0 ? pascalCase(prefix) : _ref$displayName,
+      _ref$Component = _ref.Component,
+      Component = _ref$Component === void 0 ? 'div' : _ref$Component,
+      defaultProps = _ref.defaultProps;
+
+  var BsComponent = _react.default.forwardRef( // eslint-disable-next-line react/prop-types
+  function (_ref2, ref) {
+    var className = _ref2.className,
+        bsPrefix = _ref2.bsPrefix,
+        _ref2$as = _ref2.as,
+        Tag = _ref2$as === void 0 ? Component : _ref2$as,
+        props = (0, _objectWithoutPropertiesLoose2.default)(_ref2, ["className", "bsPrefix", "as"]);
+    var resolvedPrefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, prefix);
+    return _react.default.createElement(Tag, (0, _extends2.default)({
+      ref: ref,
+      className: (0, _classnames.default)(className, resolvedPrefix)
+    }, props));
+  });
+
+  BsComponent.defaultProps = defaultProps;
+  BsComponent.displayName = displayName;
+  return BsComponent;
 }
 
-module.exports = _interopRequireWildcard;
+module.exports = exports["default"];
 
 /***/ })
 
-},[150]);
+},[146]);

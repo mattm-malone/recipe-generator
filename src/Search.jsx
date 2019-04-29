@@ -1,11 +1,14 @@
 import React from 'react';
 import 'isomorphic-fetch';
+import PropTypes from 'prop-types';
+
 import Card from 'react-bootstrap/Card';
 import CardColumns from 'react-bootstrap/CardColumns';
-import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+import Container from 'react-bootstrap/Container'
 
 // import { Link } from 'react-router';
 
@@ -13,16 +16,16 @@ class Recipe extends React.Component {
 
   render() {
     return (
-      <Card style={{width: '25em'}}>
-        <Card.Img variant="top" src={this.props.imageURL}/>
+      <Card bg='light' style={{width: '220px'}}>
+        <Card.Img variant='top' src={this.props.imageURL}/>
         <Card.Body>
           <Card.Title>{this.props.name}</Card.Title>
-          <Card.Subtitle className="mb-2 text-muted"><a href={this.props.sourceRecipeURL}>{this.props.source}</a></Card.Subtitle>    
+          <Card.Subtitle className='mb-2 text-muted'><a href={this.props.sourceRecipeURL}>{this.props.source}</a></Card.Subtitle>    
           <Card.Text>Number of servings: {this.props.numberOfServings}</Card.Text>
           <Card.Text>Calories per serving: {this.props.caloriesPerServing}</Card.Text>
           <Card.Text>Time to prepare: {this.props.totalTime}</Card.Text>
           <Card.Text>Ingredients:</Card.Text>
-          <ul className="card-text">
+          <ul className='card-text'>
             {this.props.ingredients.map((recipe, i) => <li key={i + this.props.name}>{recipe}</li>)}
           </ul>
         </Card.Body>
@@ -119,23 +122,23 @@ export default class Search extends React.Component {
 
   render() {
     return (
-      <div className="container">
-          <Form onSubmit={this.handleSubmit}>
+      <Container>
+          <Form onSubmit={this.handleSubmit} style={{marginTop: '2rem'}}>
             <Form.Row>
               <Form.Group as={Col}>
-                <input id="search-bar" type="text" className = "form-control" value={this.state.value} onChange={this.handleChange} placeholder="Enter Ingredients"/>
+                <input id='search-bar' type='text' className = 'form-control' value={this.state.value} onChange={this.handleChange} placeholder='Enter Ingredients'/>
               </Form.Group>
             </Form.Row>
             <Form.Row>
-              <Col className="text-center">
-                <Button type="submit" variant="light" size="lg">Search</Button>
+              <Col className='text-center'>
+                <Button type='submit' variant='light' size='lg'>Search</Button>
               </Col>
             </Form.Row>
           </Form>
-        <div className="row">
+        <Row style={{marginTop: '2rem'}}>
           <CardList recipes={this.state.searchResult}/>
-        </div>
-      </div>
+        </Row>
+      </Container>
     );
   }
 }

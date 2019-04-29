@@ -5,6 +5,7 @@ const bodyparser = require('body-parser')
 const app = express();
 
 app.use(express.static('static'));
+
 app.use(bodyparser.json());
 
 

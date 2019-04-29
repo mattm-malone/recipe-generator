@@ -1,20 +1,23 @@
 # Project 03 Submission (Final)
 # Team Members
 1. Matthew Malone, matthewmalon@umass.edu
-2. NAME, EMAIL
-3. NAME, EMAIL
-4. 
+2. Sal Alzu�bi, salzubi@umass.edu
+3. Che-An Lin, cheanlin@umass.edu
+4. Vidul Mahendru, vmahendru@umass.edu 
 
 
 # Project Description
-A brief paragraph describing the project.
+Recype is a handy recipy finder to help you figure out what you want to cook.
 
 # Project 03 Extension
-A description of how you extended the application and how
-it is different from your last submission.
+Phase 3 was extended in several ways.
+1. The project structure was made much more cohesive.
+2. Webpack was integrated so dependencies and imports can be more easily managed.
+3. A basic implementation of edamame api was added for recipy searching.
+4. Bootstrap was implemented for visuals.
 
 # Github URL
-A link to your github repository.
+https://github.com/mattm-malone/recipe-generator
 
 # Video Link
 A link to a 2-4 minute video demonstrating your extension.
