@@ -22,14 +22,15 @@ class Recipe extends React.Component {
 }
 
 Recipe.propTypes = {
-  id: React.PropTypes.number.isRequired,
-  name: React.PropTypes.string.isRequired,
-  imageURL: React.PropTypes.string.isRequired,
-  description: React.PropTypes.string.isRequired,
-  numberOfServings: React.PropTypes.number.isRequired,
-  sourceRecipeURL : React.PropTypes.string.isRequired,
-  totalTime: React.PropTypes.number.isRequired,
-  rating: React.PropTypes.number.isRequired
+  id: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  imageURL: PropTypes.string.isRequired,
+  source: PropTypes.string.isRequired,
+  numberOfServings: PropTypes.number.isRequired,
+  sourceRecipeURL: PropTypes.string.isRequired,
+  totalTime: PropTypes.number.isRequired,
+  caloriesPerServing: PropTypes.number.isRequired, 
+  ingredients: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 const CardList = ({ recipes }) => {
@@ -53,7 +54,7 @@ const CardList = ({ recipes }) => {
 };
 
 CardList.propTypes = {
-  recipes: React.PropTypes.array.isRequired
+  recipes: PropTypes.array.isRequired
 };
 
 class App extends React.Component {

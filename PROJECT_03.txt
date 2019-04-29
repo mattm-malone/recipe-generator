@@ -1,6 +1,6 @@
 # Project 03 Submission (Final)
 # Team Members
-1. NAME, EMAIL
+1. Matthew Malone, matthewmalon@umass.edu
 2. NAME, EMAIL
 3. NAME, EMAIL
 4. 
