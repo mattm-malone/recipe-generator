@@ -8,7 +8,6 @@ app.use(express.static('static'));
 
 app.use(bodyparser.json());
 
-
 const assert = require('assert');
 
 const url = 'mongodb://localhost:3000';

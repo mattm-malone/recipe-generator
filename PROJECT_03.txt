@@ -1,20 +1,22 @@
 # Project 03 Submission (Final)
 # Team Members
 1. Matthew Malone, matthewmalon@umass.edu
-2. Sal Alzu�bi, salzubi@umass.edu
+2. Sal Alzubi, salzubi@umass.edu
 3. Che-An Lin, cheanlin@umass.edu
 4. Vidul Mahendru, vmahendru@umass.edu 
 
 
 # Project Description
-Recype is a handy recipy finder to help you figure out what you want to cook.
+Recype is a handy recipy finder to help you figure out what you want to cook. Input ingredients you have
+lying around and get recipes in return!
 
 # Project 03 Extension
 Phase 3 was extended in several ways.
 1. The project structure was made much more cohesive.
 2. Webpack was integrated so dependencies and imports can be more easily managed.
-3. A basic implementation of edamame api was added for recipy searching.
+3. A basic implementation of the edamame api was added for recipy searching and saving.
 4. Bootstrap was implemented for visuals.
+5. Implemented react router.
 
 # Github URL
 https://github.com/mattm-malone/recipe-generator
