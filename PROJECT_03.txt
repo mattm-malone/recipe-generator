@@ -13,7 +13,7 @@ lying around and get recipes in return!
 # Project 03 Extension
 Phase 3 was extended in several ways.
 1. The project structure was made much more cohesive.
-2. Webpack was integrated so dependencies and imports can be more easily managed.
+2. Webpack was integrated so dependencies and imports can be more easily managed, and the app could be modularized.
 3. A basic implementation of the edamame api was added for recipy searching and saving.
 4. Bootstrap was implemented for visuals.
 5. Implemented react router.

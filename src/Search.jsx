@@ -123,7 +123,7 @@ export default class Search extends React.Component {
     event.preventDefault();    
     this.setState({ searchResult: [] }); 
     let query = encodeURI(this.state.value)
-    fetch(`https://api.edamam.com/search?q=${this.state.value}&app_id=2e98039e&app_key=68a92e2d6de1a6d18e6fc3499f1aa18d`)
+    fetch(`https://api.edamam.com/search?q=${query}&app_id=2e98039e&app_key=68a92e2d6de1a6d18e6fc3499f1aa18d`)
     .then(resp => resp.json())
     .then(resp => {
       if(resp.count){

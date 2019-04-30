@@ -3,7 +3,7 @@ const webpack = require('webpack');
 module.exports = {
   entry: {
     app: './src/App.jsx',
-    vendor: ['react', 'react-dom', 'isomorphic-fetch', 'react-router', 'react-bootstrap', 'prop-types'],
+    vendor: ['react', 'react-dom', 'isomorphic-fetch', 'react-router', 'react-router-dom', 'react-bootstrap', 'prop-types'],
   },
   output: {
     filename: 'static/app.bundle.js'
