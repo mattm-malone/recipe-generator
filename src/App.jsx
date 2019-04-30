@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route, Redirect, hashHistory } from 'react-router';
+import { BrowserRouter, Switch, Route, hashHistory } from 'react-router-dom';
 
 import Search from './Search.jsx';
+import Saved_Recipes from './Saved.jsx';
 
 var contentNode = document.getElementById("contents");
 
@@ -24,8 +25,17 @@ const NoMatch = () => (
 //   <Router history={hashHistory} >
 //     <Redirect from="/" to="/index" />
 //     <Route path="/index" component={Search} />
+//     {/* <Route path="/saved" component={Saved_Recipes} /> */}
 //     <Route path="*" component={NoMatch} />
 //   </Router>);
 
 // This renders the JSX router inside the content node:
-ReactDOM.render(<Search />, contentNode);
+ReactDOM.render(
+<BrowserRouter history={hashHistory} >
+  <Switch>
+    <Route exact path="/" component={Search} />
+    <Route exact path="/saved" component={Saved_Recipes} />
+    <Route path="*" component={NoMatch} />
+  </Switch>
+</BrowserRouter>, contentNode
+);

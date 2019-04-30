@@ -10,9 +10,33 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Container from 'react-bootstrap/Container'
 
-// import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 class Recipe extends React.Component {
+  constructor(props){
+    super(props);
+    this.saveRecipe = this.saveRecipe.bind(this);
+  }
+
+  saveRecipe(event) {
+    event.preventDefault();
+    fetch('/api/recipes', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(this.props),
+    })
+      .then(res => {
+        if (res.ok) {
+          console.log('saved');
+        }
+        else {
+          res.json()
+            .then(error => {
+              alert('Failed to save recipe: ' + error.message);
+            });
+        }
+      });
+  }
 
   render() {
     return (
@@ -21,6 +45,7 @@ class Recipe extends React.Component {
         <Card.Body>
           <Card.Title>{this.props.name}</Card.Title>
           <Card.Subtitle className='mb-2 text-muted'><a href={this.props.sourceRecipeURL}>{this.props.source}</a></Card.Subtitle>    
+          <Button onClick={this.saveRecipe}>Save</Button>
           <Card.Text>Number of servings: {this.props.numberOfServings}</Card.Text>
           <Card.Text>Calories per serving: {this.props.caloriesPerServing}</Card.Text>
           <Card.Text>Time to prepare: {this.props.totalTime}</Card.Text>
@@ -95,8 +120,8 @@ export default class Search extends React.Component {
 }
 
   handleSubmit(event) {
+    event.preventDefault();    
     this.setState({ searchResult: [] }); 
-    event.preventDefault();
     let query = encodeURI(this.state.value)
     fetch(`https://api.edamam.com/search?q=${this.state.value}&app_id=2e98039e&app_key=68a92e2d6de1a6d18e6fc3499f1aa18d`)
     .then(resp => resp.json())
@@ -123,6 +148,7 @@ export default class Search extends React.Component {
   render() {
     return (
       <Container>
+          <Link to='/saved'>Saved Recipes</Link>
           <Form onSubmit={this.handleSubmit} style={{marginTop: '2rem'}}>
             <Form.Row>
               <Form.Group as={Col}>
@@ -142,3 +168,8 @@ export default class Search extends React.Component {
     );
   }
 }
+
+
+Search.propTypes = {
+  location: PropTypes.object.isRequired,
+};
